@@ -12,7 +12,7 @@ public class AssetManager : MonoBehaviour
     readonly string modelsPath = "Assets/Models/";
     readonly string animatedModelsPath = "Assets/AnimatedModels/";
 
-    public List<string> formats = new List<string>() { ".blend" };
+    public List<string> formats = new() { ".blend" };
 
 
     private void Awake()
@@ -45,12 +45,9 @@ public class AssetManager : MonoBehaviour
         List<string> fieldEntries = new();
         foreach (string fieldEntry in Directory.GetFiles(animatedModelsPath))
         {
-            if (fieldEntry.EndsWith(".prefab"))
-            {
-                int index = fieldEntry.LastIndexOf(".");
-                int index2 = fieldEntry.LastIndexOf("/") + 1;
-                fieldEntries.Add(fieldEntry.Remove(index)[index2..]);
-            }
+            int index = fieldEntry.LastIndexOf(".");
+            int index2 = fieldEntry.LastIndexOf("/") + 1;
+            fieldEntries.Add(fieldEntry.Remove(index)[index2..]);
         }
 
         return fieldEntries;
@@ -71,12 +68,6 @@ public class AssetManager : MonoBehaviour
                 LoadModel(name);
             }
         }
-
-
-
-        //foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(path + "cube_circle1.blend"))
-        //    Debug.Log(asset);
-        //LoadModel("cube_circle1.blend");
     }
 
     private void LoadModel(string name)
@@ -85,9 +76,9 @@ public class AssetManager : MonoBehaviour
         var path = modelsPath + name;
 
         GameObject go = Instantiate(AssetDatabase.LoadMainAssetAtPath(path)) as GameObject;
-
         string gameObjectName = go.name.Remove(go.name.Length - 7);
-        Debug.Log(animatedModelsPath.TrimEnd('/') + ";" + gameObjectName + ";" + AssetDatabase.CreateFolder(animatedModelsPath.TrimEnd('/'), gameObjectName));
+
+        AssetDatabase.CreateFolder(animatedModelsPath.TrimEnd('/'), gameObjectName);
         string folderPath = animatedModelsPath + gameObjectName + "/";
 
         AnimationClip clip = null;

@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d978c4675e5464790298726e093a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationObject: {fileID: 1410235288}
+  simulationObject: {fileID: 518812156}
 --- !u!4 &47371037
 Transform:
   m_ObjectHideFlags: 0
@@ -4139,10 +4139,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1409714175}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 47371038}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+        m_MethodName: StopSimulation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5152,6 +5152,81 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1001 &518812155
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185941311953459716, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345929805789148200, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+        type: 3}
+      propertyPath: m_Name
+      value: cube_circle1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 95f48ee573c90f643aa0c7005ba82ff0, type: 3}
+--- !u!1 &518812156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7345929805789148200, guid: 95f48ee573c90f643aa0c7005ba82ff0,
+    type: 3}
+  m_PrefabInstance: {fileID: 518812155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &525349449
 GameObject:
   m_ObjectHideFlags: 0
@@ -9443,18 +9518,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1409714175}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 47371038}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: ResumeSimulation
@@ -10209,12 +10272,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1410235288 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1124340501160253062, guid: 4d7fc689b3471404e83ca4cc0ee46167,
-    type: 3}
-  m_PrefabInstance: {fileID: 241818252215824366}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1410920382
 GameObject:
   m_ObjectHideFlags: 0
@@ -15739,7 +15796,7 @@ PrefabInstance:
     - target: {fileID: 1124340501160253062, guid: 4d7fc689b3471404e83ca4cc0ee46167,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3955197220974508112, guid: 4d7fc689b3471404e83ca4cc0ee46167,
         type: 3}
