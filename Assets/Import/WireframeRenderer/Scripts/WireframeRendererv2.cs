@@ -7,8 +7,8 @@ public class WireframeRendererv2 : MonoBehaviour
 {
 	public bool ShowBackFaces;
 	public Color LineColor = Color.black;
-	[Range(0.1f, 1)] public float LineSize;
-	public bool Shaded;
+	[Range(0.1f, 1)] public float LineSize = 0.3f;
+	public bool Shaded = true;
 	public bool Wireframed;
 	
 	[SerializeField,HideInInspector]
@@ -128,10 +128,11 @@ public class WireframeRendererv2 : MonoBehaviour
 		}
 	}
 
-	void OnValidate()
-	{
-		ActualizeRenderer();
-	}
+	public void DestroyWireframeRenderer()
+    {
+		DestroyImmediate(wireframeRenderer.gameObject);
+    }
+
 
 	public void ActualizeRenderer()
     {

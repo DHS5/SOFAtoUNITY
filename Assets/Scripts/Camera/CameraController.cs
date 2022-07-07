@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 {
     private SettingsManager settingsManager;
     private CursorManager cursorManager;
+    private ObjectManager objectManager;
 
 
     enum CameraControlMode { FIXED, MOVING }
@@ -16,7 +17,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject cameraHolder;
 
-    public GameObject simulationObject;
+    private GameObject simulationObject;
 
 
     public float xMouseSensitivity;
@@ -46,6 +47,9 @@ public class CameraController : MonoBehaviour
     {
         settingsManager = FindObjectOfType<SettingsManager>();
         cursorManager = FindObjectOfType<CursorManager>();
+        objectManager = FindObjectOfType<ObjectManager>();
+
+        simulationObject = objectManager.simulationObject;
     }
 
     private void Start()

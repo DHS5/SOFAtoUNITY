@@ -10,7 +10,7 @@ public class AnimatorManager : MonoBehaviour
     [Tooltip("Game Object of the simulation's object")]
     private GameObject simulationObject;
 
-
+    public RuntimeAnimatorController controller;
     private Animator animator;
 
 

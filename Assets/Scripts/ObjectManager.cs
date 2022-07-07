@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
+using UnityEditor;
 
 
 public class ObjectManager : MonoBehaviour
@@ -14,13 +15,12 @@ public class ObjectManager : MonoBehaviour
     [Tooltip("Game Object of the simulation's object")]
     public GameObject simulationObject;
 
-    public bool multipleObjects;
-
-    [Tooltip("Fill only if the simulation object contains multiple child objects\n" +
-        "Fill only with the child objects having a mesh/skinned mesh renderer")]
-    public GameObject[] simulationObjects;
+    [Tooltip("All childs of the simulationObject containing a mesh/skinned mesh renderer")]
+    private GameObject[] objectChildren;
 
 
+
+    
 
     // ### Built-in Functions ###
 
@@ -33,7 +33,13 @@ public class ObjectManager : MonoBehaviour
         simulationObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
+    private void Start()
+    {
+        
+    }
 
     // ### Functions ###
 
+
+    
 }
