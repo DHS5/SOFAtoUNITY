@@ -133,7 +133,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
-    m_AdditiveReferencePoseTime: 0
+    m_AdditiveReferencePoseTime: 0.041666668
     m_StartTime: 0
     m_StopTime: 0.20833333
     m_OrientationOffsetY: 0

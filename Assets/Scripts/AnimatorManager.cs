@@ -7,14 +7,12 @@ public class AnimatorManager : MonoBehaviour
     private ObjectManager objectManager;
     private UIManager uiManager;
 
-    [Tooltip("Game Object of the simulation's object")]
-    private GameObject simulationObject;
 
     public RuntimeAnimatorController controller;
     private Animator animator;
 
 
-    private bool playing = true;
+    private bool playing = false;
     private float animationSpeed = 1f;
     public float speedHighLimit;
     public float speedLowLimit;
@@ -77,35 +75,41 @@ public class AnimatorManager : MonoBehaviour
     {
         uiManager = GetComponent<UIManager>();
         objectManager = GetComponent<ObjectManager>();
-        simulationObject = objectManager.simulationObject;
-
-        animator = simulationObject.GetComponent<Animator>();
-
-        //Animator animator2 = gameObject.AddComponent<Animator>();
-        //animator2.runtimeAnimatorController = new AnimatorOverrideController(animator.runtimeAnimatorController);
     }
+
 
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (objectManager.objectsReady)
         {
-            Play = !playing;
-            uiManager.SetPlayToggle(playing);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Play = !playing;
+                uiManager.SetPlayToggle(playing);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                SpeedUp();
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                SpeedDown();
+
+
+            if (playing)
+                uiManager.UpdateMotionTimeSlider(MotionTime);
         }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            SpeedUp();
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            SpeedDown();
-
-
-        if (playing)
-            uiManager.UpdateMotionTimeSlider(MotionTime);
     }
 
 
     // ### Functions ###
+
+    public void ActuAnimator()
+    {
+        animator = objectManager.currentObject.animator;
+
+        Play = true;
+        Speed = 1;
+    }
 
     public void SpeedUp()
     {

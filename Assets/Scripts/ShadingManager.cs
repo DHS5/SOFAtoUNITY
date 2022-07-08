@@ -12,8 +12,6 @@ public class ShadingManager : MonoBehaviour
     private ObjectManager objectManager;
 
 
-    private WireframeRendererv2 wireframeRenderer;
-
 
     [Header("Shading")]
     [SerializeField] private Toggle shadedToggle;
@@ -37,42 +35,35 @@ public class ShadingManager : MonoBehaviour
         {
             if (value == ObjectShadingType.SHADED)
             {
-                wireframeRenderer.Shaded = true;
-                wireframeRenderer.Wireframed = false;
+                objectManager.currentObject.Shaded = true;
+                objectManager.currentObject.Wireframed = false;
             }
             else if (value == ObjectShadingType.WIREFRAME)
             {
-                wireframeRenderer.Shaded = false;
-                wireframeRenderer.Wireframed = true;
+                objectManager.currentObject.Shaded = false;
+                objectManager.currentObject.Wireframed = true;
             }
             else if (value == ObjectShadingType.SHADED_WIREFRAME)
             {
-                wireframeRenderer.Shaded = true;
-                wireframeRenderer.Wireframed = true;
+                objectManager.currentObject.Shaded = true;
+                objectManager.currentObject.Wireframed = true;
             }
-            wireframeRenderer.ActualizeRenderer();
         }
     }
-    public bool Cull { set { wireframeRenderer.ShowBackFaces = !value; wireframeRenderer.ActualizeRenderer(); } }
-    public Color WireframeColor { set { wireframeRenderer.LineColor = value; wireframeRenderer.ActualizeRenderer(); } }
-    public float WireframeSize { set { wireframeRenderer.LineSize = value; wireframeRenderer.ActualizeRenderer(); } }
+    public bool Cull { set { objectManager.currentObject.Cull = value; } }
+    public Color WireframeColor { set { objectManager.currentObject.LineColor = value; } }
+    public float WireframeSize { set { objectManager.currentObject.LineSize = value; } }
 
 
     private void Awake()
     {
         objectManager = GetComponent<ObjectManager>();
-
-        wireframeRenderer = objectManager.simulationObject.GetComponentInChildren<WireframeRendererv2>();
     }
 
-    private void Start()
-    {
-        ActuShading();
-    }
 
     // ### Functions ###
 
-    private void ActuShading()
+    public void ActuShading()
     {
         if (shadedToggle.isOn) ShadingType = ObjectShadingType.SHADED;
         else if (wireframeToggle.isOn) ShadingType = ObjectShadingType.WIREFRAME;

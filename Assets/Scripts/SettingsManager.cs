@@ -12,11 +12,6 @@ public class SettingsManager : MonoBehaviour
     [Header("Screens")]
     [SerializeField] private GameObject settingsScreen;
 
-    [Header("Rendering")]
-    [SerializeField] private Image renderingImage;
-    [SerializeField] private Button prevRenderingButton;
-    [SerializeField] private Button nextRenderingButton;
-    [SerializeField] private TextMeshProUGUI renderingText;
 
     //[SerializeField] private
 

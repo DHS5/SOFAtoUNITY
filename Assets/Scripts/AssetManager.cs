@@ -7,10 +7,13 @@ using UnityEditor;
 public class AssetManager : MonoBehaviour
 {
     private AnimatorManager animatorManager;
+    private ObjectManager objectManager;
 
 
     readonly string modelsPath = "Assets/Models/";
     readonly string animatedModelsPath = "Assets/AnimatedModels/";
+
+    public ModelContainerSO modelContainer;
 
     public List<string> formats = new() { ".blend" };
 
@@ -18,13 +21,19 @@ public class AssetManager : MonoBehaviour
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        objectManager = GetComponent<ObjectManager>();
     }
 
     private void Start()
     {
         LoadModels();
+
+        StoreModels();
+
+        InstantiateModels();
     }
 
+    // ### Tools ###
 
     private List<string> GetModelsNames()
     {
@@ -52,8 +61,19 @@ public class AssetManager : MonoBehaviour
 
         return fieldEntries;
     }
+    private List<string> GetPrefabsNames()
+    {
+        List<string> fieldEntries = new();
+        foreach (GameObject g in modelContainer.modelPrefabs)
+        {
+            fieldEntries.Add(g.name);
+        }
+
+        return fieldEntries;
+    }
 
 
+    // ### First step : LOADING ###
 
     private void LoadModels()
     {
@@ -115,8 +135,11 @@ public class AssetManager : MonoBehaviour
 
         AddWireframeRenderer(go);
 
+        AddSimulationObject(go);
+
         PrefabUtility.SaveAsPrefabAsset(go, folderPath + gameObjectName + ".prefab", out bool success);
-        Debug.Log(success ? "Success" : "failed");
+        if (success)
+            Destroy(go);
     }
 
 
@@ -133,6 +156,52 @@ public class AssetManager : MonoBehaviour
         {
             WireframeRendererv2 wr = smr.gameObject.AddComponent<WireframeRendererv2>();
             wr.DestroyWireframeRenderer();
+        }
+    }
+
+    private void AddSimulationObject(GameObject go)
+    {
+        go.AddComponent<SimulationObject>();
+    }
+
+
+
+
+    // ### Second Step : STORING ###
+
+    private void StoreModels()
+    {
+        List<string> prefabsNames = GetPrefabsNames();
+        List<string> animatedModelsNames = GetAnimatedModelsNames();
+
+        foreach (string name in animatedModelsNames)
+        {
+            if (!prefabsNames.Contains(name))
+            {
+                Debug.Log("Store model : " + name);
+                StoreModel(name);
+            }
+        }
+    }
+
+    private void StoreModel(string name)
+    {
+        string path = animatedModelsPath + name + "/" + name + ".prefab";
+
+        GameObject g = AssetDatabase.LoadMainAssetAtPath(path) as GameObject;
+
+        modelContainer.modelPrefabs.Add(g);
+    }
+
+
+    // ### Third Step : INSTANTIATING ###
+
+    private void InstantiateModels()
+    {
+        foreach (GameObject g in modelContainer.modelPrefabs)
+        {
+            Instantiate(g, objectManager.simulationObject.transform);
+            objectManager.GetAllObjects();
         }
     }
 }
