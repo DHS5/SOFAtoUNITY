@@ -30,8 +30,8 @@ public class SettingsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (settingsScreen.activeSelf) ResumeSimulation();
-            else StopSimulation();
+            if (settingsScreen.activeSelf) CloseSettings();
+            else OpenSettings();
         }
     }
 
@@ -39,17 +39,26 @@ public class SettingsManager : MonoBehaviour
 
     // ### Functions ###
 
+    public void OpenSettings()
+    {
+        settingsScreen.SetActive(true);
+        StopSimulation();
+    }
+
+    public void CloseSettings()
+    {
+        settingsScreen.SetActive(false);
+        ResumeSimulation();
+    }
 
     public void StopSimulation()
     {
-        settingsScreen.SetActive(true);
         Time.timeScale = 0;
         cursorManager.SetCursor(false);
     }
 
     public void ResumeSimulation()
     {
-        settingsScreen.SetActive(false);
         Time.timeScale = 1;
         cursorManager.SetCursor(true);
     }

@@ -31,6 +31,12 @@ public class ShadingManager : MonoBehaviour
     public int IntShadingType { set { ShadingType = (ObjectShadingType)value; } }
     public ObjectShadingType ShadingType
     {
+        get
+        {
+            if (objectManager.currentObject.Shaded && !objectManager.currentObject.Wireframed) return ObjectShadingType.SHADED;
+            else if (!objectManager.currentObject.Shaded && objectManager.currentObject.Wireframed) return ObjectShadingType.WIREFRAME;
+            else return ObjectShadingType.SHADED_WIREFRAME;
+        }
         set
         {
             if (value == ObjectShadingType.SHADED)
@@ -50,10 +56,29 @@ public class ShadingManager : MonoBehaviour
             }
         }
     }
-    public bool Cull { set { objectManager.currentObject.Cull = value; } }
-    public Color WireframeColor { set { objectManager.currentObject.LineColor = value; } }
-    public float WireframeSize { set { objectManager.currentObject.LineSize = value; } }
+    public bool Cull
+    {
+        get { return objectManager.currentObject.Cull; }
+        set { objectManager.currentObject.Cull = value; }
+    }
+    public Color WireframeColor
+    {
+        get { return objectManager.currentObject.LineColor; }
+        set { objectManager.currentObject.LineColor = value; } }
+    public float WireframeSize
+    {
+        get { return objectManager.currentObject.LineSize; }
+        set { objectManager.currentObject.LineSize = value; }
+    }
 
+
+    //public int MaterialIndex
+    //{
+    //    set { objectManager.currentObject.CurrentMaterial = }
+    //}
+
+
+    // ### Built-in functions ###
 
     private void Awake()
     {
@@ -63,16 +88,18 @@ public class ShadingManager : MonoBehaviour
 
     // ### Functions ###
 
-    public void ActuShading()
+    public void ActuShadingUI()
     {
-        if (shadedToggle.isOn) ShadingType = ObjectShadingType.SHADED;
-        else if (wireframeToggle.isOn) ShadingType = ObjectShadingType.WIREFRAME;
-        else if (shadedWireframeToggle.isOn) ShadingType = ObjectShadingType.SHADED_WIREFRAME;
+        Debug.Log(Cull);
+        if (ShadingType == ObjectShadingType.SHADED) shadedToggle.isOn = true;
+        else if (ShadingType == ObjectShadingType.WIREFRAME) wireframeToggle.isOn = true;
+        else shadedWireframeToggle.isOn = true;
 
-        Cull = frontCullToggle.isOn;
+        if (Cull) frontCullToggle.isOn = true;
+        else backCullToggle.isOn = true;
 
-        WireframeColor = wireframeFCP.color;
-        WireframeSize = wireframeLineSizeSlider.value;
+        wireframeFCP.color = WireframeColor;
+        wireframeLineSizeSlider.value = WireframeSize;
 
         cullToggleGroup.SetActive(!shadedToggle.isOn);
     }

@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d96118dbbba09b41bd03578012eb6ec, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  presets:
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+    enabled: 1
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 1, b: 1, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 1, b: 1, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 1, b: 1, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 0.8670466, b: 0, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 0.8670466, b: 0, a: 1}
+    enabled: 0
+  - xRot: 50.00001
+    yRot: 0
+    dist: 10
+    altitude: 1
+    intensity: 1
+    range: 10
+    color: {r: 1, g: 0.8670466, b: 0, a: 1}
+    enabled: 0

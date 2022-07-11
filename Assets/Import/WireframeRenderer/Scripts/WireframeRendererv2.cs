@@ -146,15 +146,19 @@ public class WireframeRendererv2 : MonoBehaviour
 	{
 		wireframeMaterialNoCull = CreateWireframeMaterial(false);
 		wireframeMaterialCull = CreateWireframeMaterial(true);
-		transparentMaterial = CreateTransparentMaterial();
-		transparentMaterial.name = "Transparent mat";
-		originalMaterial = new Material(originalRenderer.sharedMaterial);
+		//transparentMaterial = CreateTransparentMaterial();
+		//transparentMaterial.name = "Transparent mat";
+		//originalMaterial = new Material(originalRenderer.sharedMaterial);
 	}
+
+	public void SetMaterial(Material mat)
+    {
+		originalRenderer.material = mat;
+    }
 
 	void UpdateWireframeRendererMaterial()
 	{ 
 		wireframeRenderer.material = ShowBackFaces ? wireframeMaterialNoCull:wireframeMaterialCull;
-		//originalRenderer.material = Wireframed ? transparentMaterial : originalMaterial;
 	}
 
 	void UpdateLines()

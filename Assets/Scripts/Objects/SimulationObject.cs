@@ -10,54 +10,61 @@ public class SimulationObject : MonoBehaviour
     public Animator animator;
 
 
+    public int subObjectIndex;
+
 
     // ### Properties ###
     public bool Shaded
     {
+        get { return childRenderers[subObjectIndex].Shaded; }
         set
         {
-            foreach (var child in childRenderers)
-                child.Shaded = value;
+            childRenderers[subObjectIndex].Shaded = value;
             ActuRenderer();
         }
     }
     public bool Wireframed
     {
+        get { return childRenderers[subObjectIndex].Wireframed; }
         set
         {
-            foreach (var child in childRenderers)
-                child.Wireframed = value;
+            childRenderers[subObjectIndex].Wireframed = value;
             ActuRenderer();
         }
     }
     public bool Cull
     {
+        get { return !childRenderers[subObjectIndex].ShowBackFaces; }
         set
         {
-            foreach (var child in childRenderers)
-                child.ShowBackFaces = !value;
+            childRenderers[subObjectIndex].ShowBackFaces = !value;
             ActuRenderer();
         }
     }
     public Color LineColor
     {
+        get { return childRenderers[subObjectIndex].LineColor; }
         set
         {
-            foreach (var child in childRenderers)
-                child.LineColor = value;
+            childRenderers[subObjectIndex].LineColor = value;
             ActuRenderer();
         }
     }
     public float LineSize
     {
+        get { return childRenderers[subObjectIndex].LineSize; }
         set
         {
-            foreach (var child in childRenderers)
-                child.LineSize = value;
+            childRenderers[subObjectIndex].LineSize = value;
             ActuRenderer();
         }
     }
 
+
+    public Material CurrentMaterial
+    {
+        set { childRenderers[subObjectIndex].SetMaterial(value); }
+    }
 
 
 

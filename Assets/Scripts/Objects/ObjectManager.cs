@@ -37,7 +37,16 @@ public class ObjectManager : MonoBehaviour
 
     public int ObjectIndex { set { SetCurrentObject(value); } }
 
-    public int SubObjectIndex { set { currentSubObject = currentObject.children[value]; subObjectEnableToggle.isOn = currentSubObject.activeSelf; } }
+    public int SubObjectIndex 
+    { 
+        set 
+        { 
+            currentSubObject = currentObject.children[value];
+            subObjectEnableToggle.isOn = currentSubObject.activeSelf;
+            currentObject.subObjectIndex = value;
+            shadingManager.ActuShadingUI();
+        } 
+    }
     public bool SetSubObject { set { currentSubObject.SetActive(value); } }
     
 
@@ -102,7 +111,7 @@ public class ObjectManager : MonoBehaviour
     private void ObjectsReady()
     {
         animatorManager.ActuAnimator();
-        shadingManager.ActuShading();
+        shadingManager.ActuShadingUI();
         objectsReady = true;
     }
 }

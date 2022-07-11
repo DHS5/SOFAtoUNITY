@@ -55,7 +55,6 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         InitCameraPos();
-        //InitCursor();
 
         controlMode = CameraControlMode.FIXED;
     }
@@ -83,9 +82,6 @@ public class CameraController : MonoBehaviour
         UpDownMove();
 
         cameraHolder.transform.LookAt(cameraPivot.transform.position);
-
-
-        //CursorUpdate();
     }
 
     private void LateUpdate()
@@ -235,9 +231,6 @@ public class CameraController : MonoBehaviour
 
             cameraPivot.transform.localPosition += new Vector3(0, y * yUpDownSensitivity * dist * Time.deltaTime, 0);
         }
-
-        if (Input.GetKeyDown(KeyCode.Delete))
-            ResetPos();
     }
 
     private void ResetPos()
