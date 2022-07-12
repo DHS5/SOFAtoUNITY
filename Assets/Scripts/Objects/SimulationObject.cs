@@ -10,7 +10,7 @@ public class SimulationObject : MonoBehaviour
     public Animator animator;
 
 
-    public int subObjectIndex;
+    [HideInInspector] public int subObjectIndex;
 
 
     // ### Properties ###
@@ -61,9 +61,33 @@ public class SimulationObject : MonoBehaviour
     }
 
 
+    public int MaterialIndex
+    {
+        get { return childRenderers[subObjectIndex].materialIndex; }
+        set { childRenderers[subObjectIndex].materialIndex = value; }
+    }
     public Material CurrentMaterial
     {
         set { childRenderers[subObjectIndex].SetMaterial(value); }
+    }
+    public Material OriginalMaterial
+    {
+        get { return childRenderers[subObjectIndex].GetOriginalMaterial(); }
+    }
+    public float MaterialTiling
+    {
+        get { return childRenderers[subObjectIndex].Tiling; }
+        set { childRenderers[subObjectIndex].Tiling = value; }
+    }
+    public float MaterialSmoothness
+    {
+        get { return childRenderers[subObjectIndex].Smoothness; }
+        set { childRenderers[subObjectIndex].Smoothness = value; }
+    }
+    public float MaterialNormal
+    {
+        get { return childRenderers[subObjectIndex].Normal; }
+        set { childRenderers[subObjectIndex].Normal = value; }
     }
 
 

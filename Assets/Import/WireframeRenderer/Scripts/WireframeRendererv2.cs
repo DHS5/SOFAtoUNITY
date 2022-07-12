@@ -10,6 +10,7 @@ public class WireframeRendererv2 : MonoBehaviour
 	[Range(0.1f, 1)] public float LineSize = 0.3f;
 	public bool Shaded = true;
 	public bool Wireframed;
+	[HideInInspector] public int materialIndex;
 	
 	[SerializeField,HideInInspector]
 	private Renderer originalRenderer;
@@ -35,6 +36,29 @@ public class WireframeRendererv2 : MonoBehaviour
 		MeshRenderer,
 		SkinnedMeshRenderer
 	}
+
+	// ### Properties ###
+
+	public float Tiling
+    {
+		get { return originalRenderer.material.mainTextureScale.x; }
+		set { originalRenderer.material.mainTextureScale = new Vector2(value, value); }
+    }
+	public float Smoothness
+    {
+		get { return originalRenderer.material.GetFloat("_Smoothness"); }
+		set { originalRenderer.material.SetFloat("_Smoothness", value); }
+    }
+	public float Normal
+    {
+		get { return originalRenderer.material.GetFloat("_BumpScale"); }
+		set { originalRenderer.material.SetFloat("_BumpScale", value); }
+    }
+
+
+
+
+
 
 	void Awake()
 	{
@@ -148,12 +172,16 @@ public class WireframeRendererv2 : MonoBehaviour
 		wireframeMaterialCull = CreateWireframeMaterial(true);
 		//transparentMaterial = CreateTransparentMaterial();
 		//transparentMaterial.name = "Transparent mat";
-		//originalMaterial = new Material(originalRenderer.sharedMaterial);
+		originalMaterial = new Material(originalRenderer.sharedMaterial);
 	}
 
 	public void SetMaterial(Material mat)
     {
 		originalRenderer.material = mat;
+    }
+	public Material GetOriginalMaterial()
+    {
+		return originalMaterial;
     }
 
 	void UpdateWireframeRendererMaterial()

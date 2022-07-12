@@ -201,7 +201,7 @@ public class AssetManager : MonoBehaviour
         foreach (GameObject g in modelContainer.modelPrefabs)
         {
             Instantiate(g, objectManager.simulationObject.transform);
-            objectManager.GetAllObjects();
         }
+        objectManager.GetAllObjects();
     }
 }

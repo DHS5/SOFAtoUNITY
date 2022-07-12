@@ -13,10 +13,10 @@ public class ObjectManager : MonoBehaviour
     private ShadingManager shadingManager;
 
 
-    [Tooltip("Game Object of the simulation's object")]
+    [Tooltip("Game Object of the simulation's object container")]
     public GameObject simulationObject;
 
-    [Tooltip("All childs of the simulationObject containing a mesh/skinned mesh renderer")]
+    [Tooltip("All simulation objects")]
     private SimulationObject[] simulationObjects;
 
     [HideInInspector] public SimulationObject currentObject;
@@ -44,7 +44,9 @@ public class ObjectManager : MonoBehaviour
             currentSubObject = currentObject.children[value];
             subObjectEnableToggle.isOn = currentSubObject.activeSelf;
             currentObject.subObjectIndex = value;
+
             shadingManager.ActuShadingUI();
+            shadingManager.ActuTextureUI();
         } 
     }
     public bool SetSubObject { set { currentSubObject.SetActive(value); } }
@@ -75,6 +77,8 @@ public class ObjectManager : MonoBehaviour
         InitObjectUI();
 
         SetCurrentObject(0);
+
+        shadingManager.InitTextureUI();
     }
 
     private void InitObjectUI()
@@ -112,6 +116,7 @@ public class ObjectManager : MonoBehaviour
     {
         animatorManager.ActuAnimator();
         shadingManager.ActuShadingUI();
+        shadingManager.ActuTextureUI();
         objectsReady = true;
     }
 }

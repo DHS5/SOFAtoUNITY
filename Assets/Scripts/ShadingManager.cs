@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 [System.Serializable]
@@ -12,8 +13,7 @@ public class ShadingManager : MonoBehaviour
     private ObjectManager objectManager;
 
 
-
-    [Header("Shading")]
+    [Header("Shading UI components")]
     [SerializeField] private Toggle shadedToggle;
     [SerializeField] private Toggle wireframeToggle;
     [SerializeField] private Toggle shadedWireframeToggle;
@@ -23,6 +23,16 @@ public class ShadingManager : MonoBehaviour
     [Header("Shading advanced")]
     [SerializeField] private FlexibleColorPicker wireframeFCP;
     [SerializeField] private Slider wireframeLineSizeSlider;
+
+
+    [Header("Textures")]
+    [SerializeField] private TextureContainerSO textureContainer;
+
+    [Header("Texture UI components")]
+    [SerializeField] private TMP_Dropdown textureDropdown;
+    [SerializeField] private Slider tilingSlider;
+    [SerializeField] private Slider smoothnessSlider;
+    [SerializeField] private Slider normalSlider;
 
 
 
@@ -72,10 +82,34 @@ public class ShadingManager : MonoBehaviour
     }
 
 
-    //public int MaterialIndex
-    //{
-    //    set { objectManager.currentObject.CurrentMaterial = }
-    //}
+    public int MaterialIndex
+    {
+        set 
+        {
+            if (value == 0) objectManager.currentObject.CurrentMaterial = objectManager.currentObject.OriginalMaterial;
+            else
+            {
+                objectManager.currentObject.CurrentMaterial = textureContainer.materials[value - 1];
+            }
+            objectManager.currentObject.MaterialIndex = value;
+            ActuTextureUI();
+        }
+    }
+    public float MaterialTiling
+    {
+        get { return objectManager.currentObject.MaterialTiling; }
+        set { objectManager.currentObject.MaterialTiling = value; }
+    }
+    public float MaterialSmoothness
+    {
+        get { return objectManager.currentObject.MaterialSmoothness; }
+        set { objectManager.currentObject.MaterialSmoothness = value; }
+    }
+    public float MaterialNormal
+    {
+        get { return objectManager.currentObject.MaterialNormal; }
+        set { objectManager.currentObject.MaterialNormal = value; }
+    }
 
 
     // ### Built-in functions ###
@@ -86,11 +120,25 @@ public class ShadingManager : MonoBehaviour
     }
 
 
+
     // ### Functions ###
+
+    public void InitTextureUI()
+    {
+        textureDropdown.options = new();
+        textureDropdown.options.Add(new TMP_Dropdown.OptionData("Default"));
+
+        foreach (Material mat in textureContainer.materials)
+        {
+            textureDropdown.options.Add(new TMP_Dropdown.OptionData(mat.name));
+        }
+
+        ActuTextureUI();
+    }
+
 
     public void ActuShadingUI()
     {
-        Debug.Log(Cull);
         if (ShadingType == ObjectShadingType.SHADED) shadedToggle.isOn = true;
         else if (ShadingType == ObjectShadingType.WIREFRAME) wireframeToggle.isOn = true;
         else shadedWireframeToggle.isOn = true;
@@ -102,5 +150,21 @@ public class ShadingManager : MonoBehaviour
         wireframeLineSizeSlider.value = WireframeSize;
 
         cullToggleGroup.SetActive(!shadedToggle.isOn);
+    }
+
+    public void ActuTextureUI()
+    {
+        float tiling = MaterialTiling;
+        float smooth = MaterialSmoothness;
+        float normal = MaterialNormal;
+        textureDropdown.value = objectManager.currentObject.MaterialIndex;
+        textureDropdown.RefreshShownValue();
+
+        MaterialTiling = tiling;
+        MaterialSmoothness = smooth;
+        MaterialNormal = normal;
+        tilingSlider.value = MaterialTiling;
+        smoothnessSlider.value = MaterialSmoothness;
+        normalSlider.value = MaterialNormal;
     }
 }
