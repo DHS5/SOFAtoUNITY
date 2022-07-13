@@ -16,8 +16,8 @@ public class WireframeRendererv2 : MonoBehaviour
 	private Renderer originalRenderer;
 	[SerializeField,HideInInspector]
 	private Mesh processedMesh;
-	[SerializeField,HideInInspector]
-	private Renderer wireframeRenderer;
+	[HideInInspector]
+	public Renderer wireframeRenderer;
 
 	[SerializeField,HideInInspector]
 	private Material wireframeMaterialCull;
@@ -29,9 +29,9 @@ public class WireframeRendererv2 : MonoBehaviour
 	private Material originalMaterial;
 
 	[SerializeField,HideInInspector]
-	private RendererType originalRendererType;
+	public RendererType originalRendererType;
 	
-	enum RendererType
+	public enum RendererType
 	{	
 		MeshRenderer,
 		SkinnedMeshRenderer
@@ -178,6 +178,14 @@ public class WireframeRendererv2 : MonoBehaviour
 	public void SetMaterial(Material mat)
     {
 		originalRenderer.material = mat;
+    }
+	public Material GetMaterial()
+    {
+		return originalRenderer.material;
+    }
+	public Material GetWireframeMaterial()
+    {
+		return wireframeRenderer.material;
     }
 	public Material GetOriginalMaterial()
     {

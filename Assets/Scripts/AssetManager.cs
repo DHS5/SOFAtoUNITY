@@ -26,9 +26,11 @@ public class AssetManager : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
         LoadModels();
 
         StoreModels();
+#endif
 
         InstantiateModels();
     }

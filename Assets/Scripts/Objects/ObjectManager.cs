@@ -119,4 +119,10 @@ public class ObjectManager : MonoBehaviour
         shadingManager.ActuTextureUI();
         objectsReady = true;
     }
+
+
+    public SimulationObject[] GiveSimulationObjects()
+    {
+        return simulationObjects;
+    }
 }

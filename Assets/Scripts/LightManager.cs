@@ -108,8 +108,8 @@ public class LightManager : MonoBehaviour
 
     public bool LightEnable
     {
-        get { return currentLight.enabled; }
-        set { currentLight.enabled = value; }
+        get { return currentPivot.activeSelf; }
+        set { currentPivot.SetActive(value); }
     }
 
 
@@ -156,9 +156,9 @@ public class LightManager : MonoBehaviour
 
     private void InitLightPos()
     {
+        lightContainer.transform.SetParent(objectManager.simulationObject.transform);
         for (int i = 0; i < lights.Length; i++)
         {
-            lightPivots[i].transform.SetParent(objectManager.simulationObject.transform);
             lightPivots[i].transform.localPosition = new Vector3(0, 1, 0);
             lightPivots[i].transform.localRotation = Quaternion.identity;
 
