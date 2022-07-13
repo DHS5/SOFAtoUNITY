@@ -60,6 +60,8 @@ The AssetManager script is situated on the MainManager GameObject in the scene.
 You can add other 3D model formats but you are responsible of making sure that the content of the model corresponds to the expectations.
 The expectations being a 3D model with at least one object with a mesh/skinned mesh renderer and only one animation.
 
+To add new materials to the list of runtime' available materials, simply add your new material to the materials list of the 'TextureContainer' ScriptableObject in 'Assets > ScriptableObjects' folder.
+
 You can modify some script's values in the Editor given the result you want.
 For example : the max speed for an animation is x16 but if you want more or less, you can modify the value in the AnimatorManager component of the MainManager in the scene.
 All useful scripts are components of the MainManager GameObject in the scene, I recommend not changing anything in the scene that isn't a value in those scripts.
