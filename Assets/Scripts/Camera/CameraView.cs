@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 
 /// <summary>
@@ -8,29 +10,37 @@ using UnityEngine;
 /// </summary>
 public class CameraView : MonoBehaviour
 {
-    /// <summary>
-    /// Sets the camera wireframe view
-    /// </summary>
-    public bool Wireframe
-    {
-        set
-        {
-            GL.wireframe = value;
+    private Camera mainCamera;
 
-            Debug.Log(GL.wireframe);
-        }
+
+    [SerializeField] private Volume volume;
+    private DepthOfField depthOfField;
+
+
+
+    public bool DOFEnabled
+    {
+        set { depthOfField.active = value; }
+    }
+    public float FocusDistance
+    {
+        set { depthOfField.focusDistance.value = value; }
+    }
+    public float FocalLength
+    {
+        set { depthOfField.focalLength.value = value; }
+    }
+    public float Aperture
+    {
+        set { depthOfField.aperture.value = value; }
     }
 
-    private void OnPreRender()
-    {
-        //Wireframe = true;
-        GL.wireframe = true;
-        Debug.Log(GL.wireframe);
-    }
 
-    private void OnPostRender()
+
+    private void Awake()
     {
-        //Wireframe = false;
-        //GL.wireframe = false;
+        mainCamera = GetComponent<Camera>();
+
+        volume.profile.TryGet(out depthOfField);
     }
 }

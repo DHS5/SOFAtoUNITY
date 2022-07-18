@@ -164,7 +164,7 @@ public class LightManager : MonoBehaviour
 
             lights[i].transform.localPosition = new Vector3(0, 0, -10);
             lights[i].transform.localRotation = Quaternion.Euler(startXRotation, 0, 0);
-            if (i > 0) lights[i].enabled = false;
+            if (i > 0) lightPivots[i].SetActive(false);
         }
     }
 
@@ -194,7 +194,7 @@ public class LightManager : MonoBehaviour
         intensitySlider.value = currentLight.intensity;
         rangeSlider.value = currentLight.range;
         lightFCP.color = currentLight.color;
-        lightToggle.isOn = currentLight.enabled;
+        lightToggle.isOn = currentPivot.activeSelf;
     }
 
 

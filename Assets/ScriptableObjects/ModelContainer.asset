@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ModelContainer
   m_EditorClassIdentifier: 
   modelPrefabs:
+  - {fileID: 2591632925483099908, guid: 17785c3bd3cd6fc4aa5500dbdf830b10, type: 3}
   - {fileID: 8467408167101089984, guid: 95f48ee573c90f643aa0c7005ba82ff0, type: 3}
-  - {fileID: 3494083493526817935, guid: 2eb6cec026dba2c46b6f86289dffdf8c, type: 3}
+  - {fileID: 6031851986496120298, guid: 8219d71a9c5d093419df1d72ca88bc89, type: 3}

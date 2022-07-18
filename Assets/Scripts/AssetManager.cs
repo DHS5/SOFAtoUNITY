@@ -139,6 +139,8 @@ public class AssetManager : MonoBehaviour
 
         AddSimulationObject(go);
 
+        Resize(go);
+
         PrefabUtility.SaveAsPrefabAsset(go, folderPath + gameObjectName + ".prefab", out bool success);
         if (success)
             Destroy(go);
@@ -166,6 +168,12 @@ public class AssetManager : MonoBehaviour
         go.AddComponent<SimulationObject>();
     }
 
+    private void Resize(GameObject go)
+    {
+        Vector3 size = go.GetComponent<Renderer>().bounds.size;
+        float sizeMax = Mathf.Max(size.x, size.y, size.z);
+        go.transform.localScale /= sizeMax / 2;
+    }
 
 
 
@@ -202,7 +210,8 @@ public class AssetManager : MonoBehaviour
     {
         foreach (GameObject g in modelContainer.modelPrefabs)
         {
-            Instantiate(g, objectManager.simulationObject.transform);
+            GameObject go = Instantiate(g, objectManager.simulationObject.transform);
+            go.name = go.name.Remove(go.name.Length - 7);
         }
         objectManager.GetAllObjects();
     }

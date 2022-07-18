@@ -11,6 +11,7 @@ public class ObjectManager : MonoBehaviour
     private UIManager uiManager;
     private AnimatorManager animatorManager;
     private ShadingManager shadingManager;
+    private BackgroundManager backgroundManager;
 
 
     [Tooltip("Game Object of the simulation's object container")]
@@ -50,6 +51,12 @@ public class ObjectManager : MonoBehaviour
         } 
     }
     public bool SetSubObject { set { currentSubObject.SetActive(value); } }
+
+
+    public float Altitude
+    {
+        set { backgroundManager.background.transform.position = new Vector3(0, -value, 0); }
+    }
     
 
     // ### Built-in Functions ###
@@ -60,6 +67,7 @@ public class ObjectManager : MonoBehaviour
         uiManager = GetComponent<UIManager>();
         animatorManager = GetComponent<AnimatorManager>();
         shadingManager = GetComponent<ShadingManager>();
+        backgroundManager = GetComponent<BackgroundManager>();
 
         simulationObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
