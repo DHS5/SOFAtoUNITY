@@ -52,8 +52,8 @@ public class Recorder : MonoBehaviour
         m_Recorder.BindComponentsOfType<Light>(lightManager.lightContainer, true);
         m_Recorder.BindComponentsOfType<Transform>(cameraController.cameraPivot, true);
         m_Recorder.BindComponentsOfType<Transform>(objectManager.currentObject.gameObject, true);
-        foreach (GameObject g in objectManager.currentObject.children)
-            m_Recorder.BindAll(g, false);
+        foreach (SubSimulationObject sub in objectManager.currentObject.children)
+            m_Recorder.BindAll(sub.gameObject, false);
     }
 
 
@@ -145,15 +145,9 @@ public class Recorder : MonoBehaviour
             DestroyImmediate(g);
 
         // Gets materials
-        WireframeRendererv2[] wrs = go.GetComponentsInChildren<WireframeRendererv2>();
-        for (int i = 0; i < wrs.Length; i++)
+        foreach (SubSimulationObject sub in go.GetComponent<SimulationObject>().children)
         {
-            AssetDatabase.CreateAsset(wrs[i].GetMaterial(), path + "Mat" + i + ".mat");
-            AssetDatabase.CreateAsset(wrs[i].wireframeRenderer.material, path + "WireframeMat" + i + ".mat");
-            if (objectManager.currentObject.childRenderers[i].originalRendererType == WireframeRendererv2.RendererType.MeshRenderer)
-                AssetDatabase.CreateAsset(wrs[i].wireframeRenderer.GetComponent<MeshFilter>().mesh, path + "WireframeMesh" + i + ".mesh");
-            else
-                AssetDatabase.CreateAsset((wrs[i].wireframeRenderer as SkinnedMeshRenderer).sharedMesh, path + "WireframeMesh" + i + ".mesh");
+            AssetDatabase.CreateAsset(sub.GetMaterial(), path + sub.gameObject.name + "Mat.mat");
         }
 
         // Apply animation

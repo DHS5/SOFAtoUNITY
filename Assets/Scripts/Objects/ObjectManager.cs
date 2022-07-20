@@ -21,7 +21,7 @@ public class ObjectManager : MonoBehaviour
     private SimulationObject[] simulationObjects;
 
     [HideInInspector] public SimulationObject currentObject;
-    [HideInInspector] public GameObject currentSubObject;
+    [HideInInspector] public SubSimulationObject currentSubObject;
 
 
     [Header("UI Components")]
@@ -43,14 +43,14 @@ public class ObjectManager : MonoBehaviour
         set 
         { 
             currentSubObject = currentObject.children[value];
-            subObjectEnableToggle.isOn = currentSubObject.activeSelf;
+            subObjectEnableToggle.isOn = currentSubObject.gameObject.activeSelf;
             currentObject.subObjectIndex = value;
 
             shadingManager.ActuShadingUI();
             shadingManager.ActuTextureUI();
         } 
     }
-    public bool SetSubObject { set { currentSubObject.SetActive(value); } }
+    public bool SetSubObject { set { currentSubObject.gameObject.SetActive(value); } }
 
 
     public float Altitude
@@ -99,13 +99,13 @@ public class ObjectManager : MonoBehaviour
     private void ActuSubObjectUI()
     {
         subObjectsDropdown.options = new List<TMP_Dropdown.OptionData>();
-        foreach (GameObject g in currentObject.children)
-            subObjectsDropdown.options.Add(new TMP_Dropdown.OptionData(g.name));
+        foreach (SubSimulationObject sub in currentObject.children)
+            subObjectsDropdown.options.Add(new TMP_Dropdown.OptionData(sub.gameObject.name));
 
         subObjectsDropdown.value = 0;
         subObjectsDropdown.RefreshShownValue();
 
-        subObjectEnableToggle.isOn = currentSubObject.activeSelf;
+        subObjectEnableToggle.isOn = currentSubObject.gameObject.activeSelf;
     }
 
     private void SetCurrentObject(int index)

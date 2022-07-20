@@ -6,7 +6,7 @@ using TMPro;
 
 
 [System.Serializable]
-public enum ObjectShadingType { SHADED, WIREFRAME, SHADED_WIREFRAME }
+public enum ObjectShadingType { SHADED, WIREFRAME, CULLED_WIRERAME, SHADED_WIREFRAME }
 
 public class ShadingManager : MonoBehaviour
 {
@@ -14,15 +14,10 @@ public class ShadingManager : MonoBehaviour
 
 
     [Header("Shading UI components")]
-    [SerializeField] private Toggle shadedToggle;
-    [SerializeField] private Toggle wireframeToggle;
-    [SerializeField] private Toggle shadedWireframeToggle;
-    [SerializeField] private GameObject cullToggleGroup;
-    [SerializeField] private Toggle frontCullToggle;
-    [SerializeField] private Toggle backCullToggle;
-    [Header("Shading advanced")]
+    [SerializeField] private TMP_Dropdown shadingDropdownn;
+    [SerializeField] private Slider wireframeThicknessSlider;
+    [SerializeField] private Slider wireframeSmoothnessSlider;
     [SerializeField] private FlexibleColorPicker wireframeFCP;
-    [SerializeField] private Slider wireframeLineSizeSlider;
 
 
     [Header("Textures")]
@@ -38,47 +33,30 @@ public class ShadingManager : MonoBehaviour
 
     // ### Properties ###
 
-    public int IntShadingType { set { ShadingType = (ObjectShadingType)value; } }
+    public int IntShadingType 
+    { 
+        get { return (int)ShadingType; }
+        set { ShadingType = (ObjectShadingType)value; } 
+    }
     public ObjectShadingType ShadingType
     {
-        get
-        {
-            if (objectManager.currentObject.Shaded && !objectManager.currentObject.Wireframed) return ObjectShadingType.SHADED;
-            else if (!objectManager.currentObject.Shaded && objectManager.currentObject.Wireframed) return ObjectShadingType.WIREFRAME;
-            else return ObjectShadingType.SHADED_WIREFRAME;
-        }
-        set
-        {
-            if (value == ObjectShadingType.SHADED)
-            {
-                objectManager.currentObject.Shaded = true;
-                objectManager.currentObject.Wireframed = false;
-            }
-            else if (value == ObjectShadingType.WIREFRAME)
-            {
-                objectManager.currentObject.Shaded = false;
-                objectManager.currentObject.Wireframed = true;
-            }
-            else if (value == ObjectShadingType.SHADED_WIREFRAME)
-            {
-                objectManager.currentObject.Shaded = true;
-                objectManager.currentObject.Wireframed = true;
-            }
-        }
-    }
-    public bool Cull
-    {
-        get { return objectManager.currentObject.Cull; }
-        set { objectManager.currentObject.Cull = value; }
+        get { return GetShading(); }
+        set { SetShading(value); }
     }
     public Color WireframeColor
     {
-        get { return objectManager.currentObject.LineColor; }
-        set { objectManager.currentObject.LineColor = value; } }
-    public float WireframeSize
+        get { return objectManager.currentSubObject.GetComponent<Renderer>().material.GetColor("_WireColor"); }
+        set { objectManager.currentSubObject.GetComponent<Renderer>().material.SetColor("_WireColor", value); }
+    }
+    public float WireframeThickness
     {
-        get { return objectManager.currentObject.LineSize; }
-        set { objectManager.currentObject.LineSize = value; }
+        get { return objectManager.currentSubObject.GetComponent<Renderer>().material.GetFloat("_WireThickness"); }
+        set { objectManager.currentSubObject.GetComponent<Renderer>().material.SetFloat("_WireThickness", value); }
+    }
+    public float WireframeSmoothness
+    {
+        get { return objectManager.currentSubObject.GetComponent<Renderer>().material.GetFloat("_WireSmoothness"); }
+        set { objectManager.currentSubObject.GetComponent<Renderer>().material.SetFloat("_WireSmoothness", value); }
     }
 
 
@@ -139,17 +117,13 @@ public class ShadingManager : MonoBehaviour
 
     public void ActuShadingUI()
     {
-        if (ShadingType == ObjectShadingType.SHADED) shadedToggle.isOn = true;
-        else if (ShadingType == ObjectShadingType.WIREFRAME) wireframeToggle.isOn = true;
-        else shadedWireframeToggle.isOn = true;
-
-        if (Cull) frontCullToggle.isOn = true;
-        else backCullToggle.isOn = true;
-
-        wireframeFCP.color = WireframeColor;
-        wireframeLineSizeSlider.value = WireframeSize;
-
-        cullToggleGroup.SetActive(!shadedToggle.isOn);
+        shadingDropdownn.value = IntShadingType;
+        if (IntShadingType != 0)
+        {
+            wireframeFCP.color = WireframeColor;
+            wireframeThicknessSlider.value = WireframeThickness;
+            wireframeSmoothnessSlider.value = WireframeSmoothness;
+        }
     }
 
     public void ActuTextureUI()
@@ -166,5 +140,41 @@ public class ShadingManager : MonoBehaviour
         tilingSlider.value = MaterialTiling;
         smoothnessSlider.value = MaterialSmoothness;
         normalSlider.value = MaterialNormal;
+    }
+
+
+
+    private void SetShading(ObjectShadingType type)
+    {
+        switch (type)
+        {
+            case ObjectShadingType.SHADED:
+                objectManager.currentSubObject.GetComponent<Renderer>().material.shader = Shader.Find("Universal Render Pipeline/Lit");
+                break;
+            case ObjectShadingType.WIREFRAME:
+                objectManager.currentSubObject.GetComponent<Renderer>().material.shader = Shader.Find("SuperSystems/Wireframe-Transparent");
+                break;
+            case ObjectShadingType.CULLED_WIRERAME:
+                objectManager.currentSubObject.GetComponent<Renderer>().material.shader = Shader.Find("SuperSystems/Wireframe-Transparent-Culled");
+                break;
+            case ObjectShadingType.SHADED_WIREFRAME:
+                objectManager.currentSubObject.GetComponent<Renderer>().material.shader = Shader.Find("SuperSystems/Wireframe-Shaded-Unlit");
+                break;
+        }     
+    }
+
+    private ObjectShadingType GetShading()
+    {
+        switch (objectManager.currentSubObject.GetComponent<Renderer>().material.shader.name)
+        {
+            case "SuperSystems/Wireframe-Transparent":
+                return ObjectShadingType.WIREFRAME;
+            case "SuperSystems/Wireframe-Transparent-Culled":
+                return ObjectShadingType.CULLED_WIRERAME;
+            case "SuperSystems/Wireframe-Shaded-Unlit":
+                return ObjectShadingType.SHADED_WIREFRAME;
+            default:
+                return ObjectShadingType.SHADED;
+        }
     }
 }

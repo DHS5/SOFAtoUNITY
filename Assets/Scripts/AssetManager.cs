@@ -135,8 +135,6 @@ public class AssetManager : MonoBehaviour
             AssetDatabase.CreateAsset(AOC, folderPath + gameObjectName + "AOC.overrideController");
         }
 
-        AddWireframeRenderer(go);
-
         AddSimulationObject(go);
 
         Resize(go);
@@ -147,30 +145,24 @@ public class AssetManager : MonoBehaviour
     }
 
 
-
-    private void AddWireframeRenderer(GameObject go)
-    {
-        foreach (MeshRenderer mr in go.GetComponentsInChildren<MeshRenderer>())
-        {
-            WireframeRendererv2 wr = mr.gameObject.AddComponent<WireframeRendererv2>();
-            wr.DestroyWireframeRenderer();
-        }
-
-        foreach (SkinnedMeshRenderer smr in go.GetComponentsInChildren<SkinnedMeshRenderer>())
-        {
-            WireframeRendererv2 wr = smr.gameObject.AddComponent<WireframeRendererv2>();
-            wr.DestroyWireframeRenderer();
-        }
-    }
-
     private void AddSimulationObject(GameObject go)
     {
         go.AddComponent<SimulationObject>();
+
+        // Add sub objects
+        foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
+        {
+            r.gameObject.AddComponent<SubSimulationObject>();
+        }
     }
 
     private void Resize(GameObject go)
     {
-        Vector3 size = go.GetComponent<Renderer>().bounds.size;
+        Renderer rend = go.GetComponent<Renderer>();
+        if (rend == null)
+            rend = go.GetComponentInChildren<Renderer>();
+
+        Vector3 size = rend.bounds.size;
         float sizeMax = Mathf.Max(size.x, size.y, size.z);
         go.transform.localScale /= sizeMax / 2;
     }
@@ -208,11 +200,26 @@ public class AssetManager : MonoBehaviour
 
     private void InstantiateModels()
     {
+        List<int> bin = new();
+
+        int i = 0;
         foreach (GameObject g in modelContainer.modelPrefabs)
         {
-            GameObject go = Instantiate(g, objectManager.simulationObject.transform);
-            go.name = go.name.Remove(go.name.Length - 7);
+            if (g == null) bin.Add(i);
+            else
+            {
+                GameObject go = Instantiate(g, objectManager.simulationObject.transform);
+                go.name = go.name.Remove(go.name.Length - 7);
+            }
+            i++;
         }
         objectManager.GetAllObjects();
+
+        foreach (int index in bin)
+        {
+            modelContainer.modelPrefabs.RemoveAt(index);
+            for (int ind = 0; ind < bin.Count; ind++)
+                bin[ind]--;
+        }
     }
 }

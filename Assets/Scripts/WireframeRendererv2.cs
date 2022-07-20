@@ -10,7 +10,6 @@ public class WireframeRendererv2 : MonoBehaviour
 	[Range(0.1f, 1)] public float LineSize = 0.3f;
 	public bool Shaded = true;
 	public bool Wireframed;
-	[HideInInspector] public int materialIndex;
 	
 	[SerializeField,HideInInspector]
 	private Renderer originalRenderer;
@@ -36,24 +35,6 @@ public class WireframeRendererv2 : MonoBehaviour
 		MeshRenderer,
 		SkinnedMeshRenderer
 	}
-
-	// ### Properties ###
-
-	public float Tiling
-    {
-		get { return originalRenderer.material.mainTextureScale.x; }
-		set { originalRenderer.material.mainTextureScale = new Vector2(value, value); }
-    }
-	public float Smoothness
-    {
-		get { return originalRenderer.material.GetFloat("_Smoothness"); }
-		set { originalRenderer.material.SetFloat("_Smoothness", value); }
-    }
-	public float Normal
-    {
-		get { return originalRenderer.material.GetFloat("_BumpScale"); }
-		set { originalRenderer.material.SetFloat("_BumpScale", value); }
-    }
 
 
 
@@ -171,27 +152,9 @@ public class WireframeRendererv2 : MonoBehaviour
 		wireframeMaterialNoCull = CreateWireframeMaterial(false);
 		wireframeMaterialCull = CreateWireframeMaterial(true);
 		//transparentMaterial = CreateTransparentMaterial();
-		//transparentMaterial.name = "Transparent mat";
-		originalRenderer.material.SetFloat("_Cull", 0.0f);
+		//transparentMaterial.name = "Transparent mat
 		originalMaterial = new Material(originalRenderer.material);
 	}
-
-	public void SetMaterial(Material mat)
-    {
-		originalRenderer.material = mat;
-    }
-	public Material GetMaterial()
-    {
-		return originalRenderer.material;
-    }
-	public Material GetWireframeMaterial()
-    {
-		return wireframeRenderer.material;
-    }
-	public Material GetOriginalMaterial()
-    {
-		return originalMaterial;
-    }
 
 	void UpdateWireframeRendererMaterial()
 	{ 
@@ -305,4 +268,27 @@ public class WireframeRendererv2 : MonoBehaviour
 		return processedMesh;
 	}
 
+
+	private void ProcessBlendShapes(Mesh sMesh, ref Mesh pMesh)
+    {
+		Vector3[] deltaVertices = new Vector3[sMesh.vertexCount];
+		Vector3[] deltaNormals = new Vector3[sMesh.vertexCount];
+		Vector3[] deltaTangents = new Vector3[sMesh.vertexCount];
+
+		for (int shapeI = 0; shapeI < sMesh.blendShapeCount; shapeI++)
+		{
+			string shapeName = sMesh.GetBlendShapeName(shapeI);
+
+			if (pMesh.GetBlendShapeIndex(shapeName) < 0)
+			{
+				int frameCount = sMesh.GetBlendShapeFrameCount(shapeI);
+				for (int frameI = 0; frameI < frameCount; frameI++)
+				{
+					float frameWeight = sMesh.GetBlendShapeFrameWeight(shapeI, frameI);
+					sMesh.GetBlendShapeFrameVertices(shapeI, frameI, deltaVertices, deltaNormals, deltaTangents);
+					pMesh.AddBlendShapeFrame(shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents);
+				}
+			}
+		}
+    }
 }
