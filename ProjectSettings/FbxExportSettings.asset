@@ -15,6 +15,7 @@
             "."
         ],
         "fbxSavePaths": [
+            "Models",
             "."
         ],
         "selectedFbxPath": 0,
@@ -22,7 +23,7 @@
         "dccOptionNames": [],
         "dccOptionPaths": [],
         "exportModelSettingsSerialize": {
-            "exportFormat": 0,
+            "exportFormat": 1,
             "animatedSkinnedMesh": true,
             "mayaCompatibleNaming": true,
             "include": 2,

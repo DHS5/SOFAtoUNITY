@@ -68,7 +68,8 @@ public class AssetManager : MonoBehaviour
         List<string> fieldEntries = new();
         foreach (GameObject g in modelContainer.modelPrefabs)
         {
-            fieldEntries.Add(g.name);
+            if (g != null)
+                fieldEntries.Add(g.name);
         }
 
         return fieldEntries;
@@ -147,13 +148,13 @@ public class AssetManager : MonoBehaviour
 
     private void AddSimulationObject(GameObject go)
     {
-        go.AddComponent<SimulationObject>();
-
         // Add sub objects
         foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
         {
             r.gameObject.AddComponent<SubSimulationObject>();
         }
+
+        go.AddComponent<SimulationObject>();
     }
 
     private void Resize(GameObject go)
@@ -200,26 +201,14 @@ public class AssetManager : MonoBehaviour
 
     private void InstantiateModels()
     {
-        List<int> bin = new();
-
-        int i = 0;
         foreach (GameObject g in modelContainer.modelPrefabs)
         {
-            if (g == null) bin.Add(i);
-            else
+            if (g != null)
             {
                 GameObject go = Instantiate(g, objectManager.simulationObject.transform);
                 go.name = go.name.Remove(go.name.Length - 7);
             }
-            i++;
         }
         objectManager.GetAllObjects();
-
-        foreach (int index in bin)
-        {
-            modelContainer.modelPrefabs.RemoveAt(index);
-            for (int ind = 0; ind < bin.Count; ind++)
-                bin[ind]--;
-        }
     }
 }

@@ -6,7 +6,7 @@ using TMPro;
 
 public class RecordingManager : MonoBehaviour
 {
-    private Recorder recorder;
+    private RecorderFBX recorder;
 
 
     [Header("Recording UI Components")]
@@ -18,7 +18,7 @@ public class RecordingManager : MonoBehaviour
     {
         if (start)
         {
-            recorder = FindObjectOfType<Recorder>();
+            recorder = FindObjectOfType<RecorderFBX>();
             recorder.StartRecording();
         }
         else recorder.StopRecording(inputField.text);

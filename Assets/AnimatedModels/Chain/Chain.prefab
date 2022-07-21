@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8118034150481200526
+--- !u!1 &1887060916206024268
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8493876711094172297}
-  - component: {fileID: 8845789570962764828}
-  - component: {fileID: 1800877467989843552}
-  - component: {fileID: 7877886295147721146}
-  - component: {fileID: 5989924359241339234}
+  - component: {fileID: 1289110679436470351}
+  - component: {fileID: 2354669847885048911}
+  - component: {fileID: 5320091145623904400}
+  - component: {fileID: 8125992725611035031}
+  - component: {fileID: 5645972855986435741}
   m_Layer: 0
   m_Name: Chain
   m_TagString: Untagged
@@ -20,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8493876711094172297
+--- !u!4 &1289110679436470351
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118034150481200526}
+  m_GameObject: {fileID: 1887060916206024268}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.08113631, y: 0.08113631, z: 0.08113631}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &8845789570962764828
+--- !u!137 &2354669847885048911
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118034150481200526}
+  m_GameObject: {fileID: 1887060916206024268}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -88,14 +88,14 @@ SkinnedMeshRenderer:
     m_Center: {x: -5.0178967, y: -6.7362247, z: 0.1279087}
     m_Extent: {x: 7.43495, y: 8.736225, z: 12.324938}
   m_DirtyAABB: 0
---- !u!95 &1800877467989843552
+--- !u!95 &5320091145623904400
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118034150481200526}
+  m_GameObject: {fileID: 1887060916206024268}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: 5e69716a91d1ba0459c2d4c23e920907, type: 2}
@@ -108,31 +108,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7877886295147721146
+--- !u!114 &8125992725611035031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118034150481200526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d09a1efbf0659548984e08f1393e1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  children: []
-  animator: {fileID: 1800877467989843552}
-  subObjectIndex: 0
---- !u!114 &5989924359241339234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118034150481200526}
+  m_GameObject: {fileID: 1887060916206024268}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7228385fe92afb47840ce5434b330da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   materialIndex: 0
+--- !u!114 &5645972855986435741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887060916206024268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d09a1efbf0659548984e08f1393e1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  children:
+  - {fileID: 8125992725611035031}
+  animator: {fileID: 5320091145623904400}
+  subObjectIndex: 0
