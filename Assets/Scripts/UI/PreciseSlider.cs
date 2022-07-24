@@ -28,7 +28,7 @@ public class PreciseSlider : MonoBehaviour
     {
         set 
         {
-            if (inputField.text != "")
+            if (inputField.text != "" && inputField.text != "-")
                 slider.value = float.Parse(inputField.text);
             else
                 slider.value = slider.minValue;

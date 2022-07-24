@@ -37,6 +37,10 @@ public class AssetManager : MonoBehaviour
 
     // ### Tools ###
 
+    /// <summary>
+    /// Gets the models placed in the 'Models' folder names
+    /// </summary>
+    /// <returns>List of the models names</returns>
     private List<string> GetModelsNames()
     {
         List<string> fieldEntries = new();
@@ -51,6 +55,10 @@ public class AssetManager : MonoBehaviour
 
         return fieldEntries;
     }
+    /// <summary>
+    /// Gets the names of the already saved models
+    /// </summary>
+    /// <returns>List of the prefab's names</returns>
     private List<string> GetAnimatedModelsNames()
     {
         List<string> fieldEntries = new();
@@ -63,6 +71,10 @@ public class AssetManager : MonoBehaviour
 
         return fieldEntries;
     }
+    /// <summary>
+    /// Gets the names of the prefabs stored in the model container scriptable object
+    /// </summary>
+    /// <returns>List of the prefabs names</returns>
     private List<string> GetPrefabsNames()
     {
         List<string> fieldEntries = new();
@@ -78,6 +90,9 @@ public class AssetManager : MonoBehaviour
 
     // ### First step : LOADING ###
 
+    /// <summary>
+    /// Loads all the non-saved models from assets
+    /// </summary>
     private void LoadModels()
     {
         List<string> modelsNames = GetModelsNames();
@@ -93,6 +108,10 @@ public class AssetManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Load a model by his name
+    /// </summary>
+    /// <param name="name">Model's name</param>
     private void LoadModel(string name)
     {
         // Gets the path
@@ -145,7 +164,10 @@ public class AssetManager : MonoBehaviour
             Destroy(go);
     }
 
-
+    /// <summary>
+    /// Add the simulation object component to a model
+    /// </summary>
+    /// <param name="go">GameObject of the model</param>
     private void AddSimulationObject(GameObject go)
     {
         // Add sub objects
@@ -156,7 +178,10 @@ public class AssetManager : MonoBehaviour
 
         go.AddComponent<SimulationObject>();
     }
-
+    /// <summary>
+    /// Resize the GameObject so it fits the viewer size
+    /// </summary>
+    /// <param name="go">GameObject to resize</param>
     private void Resize(GameObject go)
     {
         Renderer rend = go.GetComponent<Renderer>();
@@ -172,6 +197,9 @@ public class AssetManager : MonoBehaviour
 
     // ### Second Step : STORING ###
 
+    /// <summary>
+    /// Stores the newly created prefabs in the model container scriptable object
+    /// </summary>
     private void StoreModels()
     {
         List<string> prefabsNames = GetPrefabsNames();
@@ -187,6 +215,10 @@ public class AssetManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Store a model by his name
+    /// </summary>
+    /// <param name="name">Model's name</param>
     private void StoreModel(string name)
     {
         string path = animatedModelsPath + name + "/" + name + ".prefab";
@@ -199,6 +231,9 @@ public class AssetManager : MonoBehaviour
 
     // ### Third Step : INSTANTIATING ###
 
+    /// <summary>
+    /// Instantiate all the models present in the model container scriptable object in the scene
+    /// </summary>
     private void InstantiateModels()
     {
         foreach (GameObject g in modelContainer.modelPrefabs)

@@ -142,6 +142,9 @@ public class LightManager : MonoBehaviour
 
     // ### Functions ###
 
+    /// <summary>
+    /// Initialize the light list with all lights present in the scene
+    /// </summary>
     private void InitLightList()
     {
         int childCount = lightContainer.transform.childCount;
@@ -154,6 +157,9 @@ public class LightManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialize the light positions and parents
+    /// </summary>
     private void InitLightPos()
     {
         lightContainer.transform.SetParent(objectManager.simulationObject.transform);
@@ -168,6 +174,9 @@ public class LightManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialize the light UI components
+    /// </summary>
     private void InitLightUI()
     {
         lightDropdown.options = new List<TMP_Dropdown.OptionData>();
@@ -185,6 +194,9 @@ public class LightManager : MonoBehaviour
         ActuLightUI();
     }
 
+    /// <summary>
+    /// Actualize the light UI components according to the current selected light
+    /// </summary>
     private void ActuLightUI()
     {
         xRotSlider.value = currentLight.transform.localEulerAngles.x;
@@ -233,6 +245,11 @@ public class LightManager : MonoBehaviour
 
     // ### Light Preset ###
 
+    /// <summary>
+    /// Sets a light properties according to a light preset
+    /// </summary>
+    /// <param name="index">Index of the light</param>
+    /// <param name="preset">Light preset</param>
     private void SetLight(int index, LightPreset preset)
     {
         LightIndex = index;
@@ -246,7 +263,10 @@ public class LightManager : MonoBehaviour
         LightColor = preset.color;
         LightEnable = preset.enabled;
     }
-
+    /// <summary>
+    /// Apply a group of light presets on the ligths of the scene
+    /// </summary>
+    /// <param name="index">Index of the light presets</param>
     public void ApplyPresets(int index)
     {
         for (int i = 0; i < lights.Length; i++)
@@ -255,7 +275,9 @@ public class LightManager : MonoBehaviour
         LightIndex = 0;
     }
 
-
+    /// <summary>
+    /// Creates a light preset
+    /// </summary>
     public void CreatePresets()
     {
         string name = createPresetInputField.text;
@@ -266,7 +288,11 @@ public class LightManager : MonoBehaviour
         lightPresetDropdown.options.Add(new TMP_Dropdown.OptionData(name));
         lightPresetDropdown.value = lightPresetDropdown.options.Count - 1;
     }
-
+    /// <summary>
+    /// Saves a light preset
+    /// </summary>
+    /// <param name="index">Index of the light</param>
+    /// <param name="preset">Light preset</param>
     private void SavePreset(int index, ref LightPreset preset)
     {
         LightIndex = index;
@@ -281,6 +307,10 @@ public class LightManager : MonoBehaviour
         preset.enabled = LightEnable;
     }
 
+    /// <summary>
+    /// Saves the light presets of the scene lights
+    /// </summary>
+    /// <param name="presets">Light presets</param>
     private void SavePresets(LightPresetSO presets)
     {
         int index = lightDropdown.value;

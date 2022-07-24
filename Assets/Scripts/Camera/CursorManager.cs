@@ -24,7 +24,9 @@ public class CursorManager : MonoBehaviour
         SetCursor(true);
     }
 
-
+    /// <summary>
+    /// Binds the cursor management keys and mouse clicks
+    /// </summary>
     private void Update()
     {
         if (focused && Input.GetKeyDown(KeyCode.LeftControl) && settingsManager.SimulationOn)
@@ -44,7 +46,10 @@ public class CursorManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Locks or unlocks the cursor given the state parameter
+    /// </summary>
+    /// <param name="state">If true : lock / If false : Unlock</param>
     public void SetCursor(bool state)
     {
         Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;

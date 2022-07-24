@@ -5,52 +5,25 @@ using UnityEditor;
 using UnityEditor.Animations;
 using System.IO;
 
-public class RecorderFBX : MonoBehaviour
+public class RecorderFBX : Recorder
 {
-    private ObjectManager objectManager;
-    private LightManager lightManager;
-    private CameraController cameraController;
-
-
-    private AnimationClip clip;
-    private GameObjectRecorder m_Recorder;
-
-    private bool recording = false;
-
-
-    readonly string modelsPath = "Assets/RecordedModels/";
-
-
-
-    private void Start()
-    {
-        objectManager = FindObjectOfType<ObjectManager>();
-        lightManager = FindObjectOfType<LightManager>();
-        cameraController = FindObjectOfType<CameraController>();
-    }
 
 
     // ### Functions ###
 
-    public void StartRecording()
+    protected override void Start()
     {
-        recording = true;
+        base.Start();
 
-        // Create new clip
-        clip = new AnimationClip();
-
-        // Create recorder and record the script GameObject.
-        m_Recorder = new GameObjectRecorder(gameObject);
-
-        // Bind all the Transforms on the GameObject and all its children.
-        Bind();
+        modelsPath = "Assets/RecordedModels/";
     }
 
-    private void Bind()
+    protected override void Bind()
     {
         m_Recorder.BindComponentsOfType<Transform>(lightManager.lightContainer, false);
         m_Recorder.BindComponentsOfType<Transform>(cameraController.cameraPivot, true);
-        m_Recorder.BindComponentsOfType<Transform>(objectManager.currentObject.gameObject, true);
+        //m_Recorder.BindComponentsOfType<Transform>(objectManager.currentObject.gameObject, true);
+        m_Recorder.BindAll(objectManager.currentObject.gameObject, false);
         for (int i = 0; i < lightManager.lightContainer.transform.childCount; i++)
             if (lightManager.lightContainer.transform.GetChild(i).gameObject.activeSelf)
             {
@@ -70,49 +43,7 @@ public class RecorderFBX : MonoBehaviour
     }
 
 
-    public void StopRecording(string name)
-    {
-        if (name == "") name = "model" + Random.Range(0, 100000);
-
-        NameVerif(ref name);
-
-        recording = false;
-
-        if (clip == null)
-            return;
-
-        if (m_Recorder.isRecording)
-        {
-            // Save the recorded session to the clip.
-            m_Recorder.SaveToClip(clip);
-
-            SaveModel(clip, name);
-        }
-    }
-
-    private void NameVerif(ref string name)
-    {
-        bool done = false;
-        bool back;
-        while (!done)
-        {
-            back = false;
-            foreach (string folderName in Directory.GetFiles(modelsPath))
-            {
-                if (folderName.Remove(folderName.LastIndexOf('.'))[(folderName.LastIndexOf('/')+1)..] == name)
-                {
-                    name += "1";
-                    back = true;
-                    break;
-                }
-            }
-
-            if (!back)
-                done = true;
-        }
-    }
-
-
+    
     void LateUpdate()
     {
         if (clip != null && recording)
@@ -122,16 +53,22 @@ public class RecorderFBX : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Saves the clip in chosen file
+    /// </summary>
+    /// <param name="clip">Clip to save</param>
+    /// <param name="path">File's path</param>
+    /// <returns></returns>
     private AnimationClip SaveClip(AnimationClip clip, string path)
     {
         clip.legacy = true;
+        clip.wrapMode = WrapMode.Loop;
         AssetDatabase.CreateAsset(clip, path + "Clip.anim");
 
         return clip;
     }
 
-    private void SaveModel(AnimationClip clip, string name)
+    protected override void SaveModel(AnimationClip clip, string name)
     {
         AssetDatabase.CreateFolder(modelsPath.TrimEnd('/'), name);
         string path = modelsPath + name + "/" + name;
@@ -139,30 +76,15 @@ public class RecorderFBX : MonoBehaviour
         SavePrefab(path, SaveClip(clip, path));
     }
 
+    /// <summary>
+    /// Saves the prefab after destroying useless gameobjects in it
+    /// </summary>
+    /// <param name="path">File's path</param>
+    /// <param name="clip">Clip to add to the prefab's animator</param>
     private void SavePrefab(string path, AnimationClip clip)
     {
-        //List<GameObject> toDestroy = new List<GameObject>();
-
         // Instantiate new GameObject
         GameObject go = Instantiate(gameObject);
-
-        // Destroys useless objects
-        //for (int i = 0; i < go.transform.childCount; i++)
-        //{
-        //    if (!go.transform.GetChild(i).gameObject.activeSelf)
-        //    {
-        //        toDestroy.Add(go.transform.GetChild(i).gameObject);
-        //    }
-        //}
-        //foreach (Light l in go.GetComponentsInChildren<Light>())
-        //{
-        //    if (!l.transform.parent.gameObject.activeSelf)
-        //    {
-        //        toDestroy.Add(l.transform.parent.gameObject);
-        //    }
-        //}
-        //foreach (GameObject g in toDestroy)
-        //    DestroyImmediate(g);
 
         DestroyInactiveObjects(go);
 
@@ -181,8 +103,14 @@ public class RecorderFBX : MonoBehaviour
         Destroy(go);
     }
 
+    /// <summary>
+    /// Destroys useless gameobjects in the futur prefab gameobject
+    /// </summary>
+    /// <param name="p"></param>
     private void DestroyInactiveObjects(GameObject p)
     {
+        Destroy(p.GetComponentInChildren<CameraController>());
+
         List<GameObject> toDestroy = new List<GameObject>();
 
         for (int i = 0; i < p.transform.childCount; i++)

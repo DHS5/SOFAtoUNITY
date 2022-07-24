@@ -14,7 +14,6 @@ public class BackgroundManager : MonoBehaviour
 
     [Header("UI components")]
     [SerializeField] private FlexibleColorPicker backgroundFCP;
-    [SerializeField] private PreciseSlider backgroundSlider;
 
 
 
@@ -28,11 +27,13 @@ public class BackgroundManager : MonoBehaviour
 
     public float Distance
     {
-        set 
-        { 
-            //background.transform.localScale = new Vector3(value, 20, value);
-            background.transform.localPosition = new Vector3(0, -1, value);
-        }
+        get { return background.transform.localPosition.z; }
+        set { background.transform.localPosition = new Vector3(0, Altitude, value); }
+    }
+    public float Altitude
+    {
+        get { return background.transform.localPosition.y; }
+        set { background.transform.localPosition = new Vector3(0, value, Distance); }
     }
 
     public Color Color
@@ -49,29 +50,14 @@ public class BackgroundManager : MonoBehaviour
         meshRenderer = background.GetComponent<MeshRenderer>();
 
         backgroundFCP.color = Color;
-        SetSliderValues(-10, 10, 0);
     }
 
-    private void Start()
-    {
-        //SetParent(objectManager.simulationObject.transform);
-    }
 
+    /// <summary>
+    /// Keeps the background in front of the camera
+    /// </summary>
     private void Update()
     {
         background.transform.rotation = Quaternion.Euler(0, cameraPivot.transform.rotation.eulerAngles.y + 180, 0);
-    }
-
-    public void SetParent(Transform transform)
-    {
-        background.transform.SetParent(transform);
-        background.transform.SetPositionAndRotation(new Vector3(0, -1, 0), Quaternion.identity);
-    }
-
-    private void SetSliderValues(float min, float max, float start)
-    {
-        backgroundSlider.slider.minValue = min;
-        backgroundSlider.slider.maxValue = max;
-        backgroundSlider.slider.value = start;
     }
 }

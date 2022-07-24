@@ -31,7 +31,7 @@ public class ObjectManager : MonoBehaviour
 
 
 
-
+    [Tooltip("Whether the objects are ready to be used by other managers")]
     [HideInInspector] public bool objectsReady = false;
 
     // ### Properties ###
@@ -52,11 +52,6 @@ public class ObjectManager : MonoBehaviour
     }
     public bool SetSubObject { set { currentSubObject.gameObject.SetActive(value); } }
 
-
-    public float Altitude
-    {
-        set { backgroundManager.background.transform.position = new Vector3(0, -value, 0); }
-    }
     
 
     // ### Built-in Functions ###
@@ -76,6 +71,10 @@ public class ObjectManager : MonoBehaviour
 
     // ### Functions ###
 
+    /// <summary>
+    /// Gets an array of all the simulation objects present in the scene
+    /// Actualize the UI according to the first object (only object kept active)
+    /// </summary>
     public void GetAllObjects()
     {
         simulationObjects = simulationObject.GetComponentsInChildren<SimulationObject>();
@@ -89,13 +88,18 @@ public class ObjectManager : MonoBehaviour
         shadingManager.InitTextureUI();
     }
 
+    /// <summary>
+    /// Gets the main objects dropdown choices
+    /// </summary>
     private void InitObjectUI()
     {
         mainObjectDropdown.options = new List<TMP_Dropdown.OptionData>();
         foreach (SimulationObject so in simulationObjects)
             mainObjectDropdown.options.Add(new TMP_Dropdown.OptionData(so.gameObject.name));
     }
-
+    /// <summary>
+    /// Gets the sub objects dropdown choices according to the active object
+    /// </summary>
     private void ActuSubObjectUI()
     {
         subObjectsDropdown.options = new List<TMP_Dropdown.OptionData>();
@@ -108,6 +112,10 @@ public class ObjectManager : MonoBehaviour
         subObjectEnableToggle.isOn = currentSubObject.gameObject.activeSelf;
     }
 
+    /// <summary>
+    /// Sets the current object by dropdown index
+    /// </summary>
+    /// <param name="index">Index of the object in the objects array</param>
     private void SetCurrentObject(int index)
     {
         if (currentObject != null) currentObject.gameObject.SetActive(false);
@@ -119,18 +127,14 @@ public class ObjectManager : MonoBehaviour
 
         ActuSubObjectUI();
     }
-
+    /// <summary>
+    /// Signify to other managers that objects are ready to be used
+    /// </summary>
     private void ObjectsReady()
     {
         animatorManager.ActuAnimator();
         shadingManager.ActuShadingUI();
         shadingManager.ActuTextureUI();
         objectsReady = true;
-    }
-
-
-    public SimulationObject[] GiveSimulationObjects()
-    {
-        return simulationObjects;
     }
 }

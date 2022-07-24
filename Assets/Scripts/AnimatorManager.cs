@@ -78,7 +78,9 @@ public class AnimatorManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Binds the animation control keys
+    /// </summary>
     private void Update()
     {
         if (objectManager.objectsReady)
@@ -103,6 +105,9 @@ public class AnimatorManager : MonoBehaviour
 
     // ### Functions ###
 
+    /// <summary>
+    /// Actualize the animator according to the current object
+    /// </summary>
     public void ActuAnimator()
     {
         animator = objectManager.currentObject.animator;
@@ -111,6 +116,9 @@ public class AnimatorManager : MonoBehaviour
         Speed = 1;
     }
 
+    /// <summary>
+    /// Increase the animation speed
+    /// </summary>
     public void SpeedUp()
     {
         if (animationSpeed > 0)
@@ -120,7 +128,9 @@ public class AnimatorManager : MonoBehaviour
         else
             Speed /= multiplier;
     }
-    
+    /// <summary>
+    /// Decrease the animation speed
+    /// </summary>
     public void SpeedDown()
     {
         if (animationSpeed < 0)

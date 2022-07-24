@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// Handles the camera movements and rotations
+/// </summary>
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
@@ -59,6 +62,9 @@ public class CameraController : MonoBehaviour
         controlMode = CameraControlMode.FIXED;
     }
 
+    /// <summary>
+    /// Binds the keys and mouse clicks used to move and rotate the camera
+    /// </summary>
     private void Update()
     {
         if (Input.GetMouseButton(1))
@@ -84,6 +90,9 @@ public class CameraController : MonoBehaviour
         cameraHolder.transform.LookAt(cameraPivot.transform.position);
     }
 
+    /// <summary>
+    /// Update in a smooth way the move and rotation of the camera
+    /// </summary>
     private void LateUpdate()
     {
         if (controlMode == CameraControlMode.FIXED && cursorManager.locked) LookRotation();
@@ -95,6 +104,9 @@ public class CameraController : MonoBehaviour
 
     // # Initialization #
 
+    /// <summary>
+    /// Initialize the camera position
+    /// </summary>
     private void InitCameraPos()
     {
         cameraPivot.transform.parent = simulationObject.transform;
@@ -102,7 +114,9 @@ public class CameraController : MonoBehaviour
 
         ResetAll();
     }
-
+    /// <summary>
+    /// Resets all position and rotation of the camera
+    /// </summary>
     private void ResetAll()
     {
         ResetPos();
@@ -114,6 +128,9 @@ public class CameraController : MonoBehaviour
 
     // # Calcul #
 
+    /// <summary>
+    /// Makes the camera look around thanks to mouse movements
+    /// </summary>
     private void LookRotation()
     {
         // Gets the mouse X and Y position and clamps it
@@ -133,6 +150,11 @@ public class CameraController : MonoBehaviour
         gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles.x, gameObject.transform.rotation.eulerAngles.y, 0);
     }
 
+    /// <summary>
+    /// Clamps the look rotation of the camera
+    /// </summary>
+    /// <param name="rot"></param>
+    /// <returns></returns>
     private Quaternion ClampLookRotation(Quaternion rot)
     {
         // Normalize the original quaternion
@@ -153,6 +175,9 @@ public class CameraController : MonoBehaviour
         return rot;
     }
 
+    /// <summary>
+    /// Resets the look rotation
+    /// </summary>
     private void ResetLookRotation()
     {
         gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
@@ -161,7 +186,9 @@ public class CameraController : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// Makes the camera move around the object thanks to mouse movements
+    /// </summary>
     private void MoveRotation()
     {
         // Gets the mouse X and Y position and clamps it
@@ -177,6 +204,11 @@ public class CameraController : MonoBehaviour
         cameraPivot.transform.rotation = Quaternion.Euler(cameraPivot.transform.rotation.eulerAngles.x, cameraPivot.transform.rotation.eulerAngles.y, 0);
     }
 
+    /// <summary>
+    /// Clamps the move rotation of the camera
+    /// </summary>
+    /// <param name="rot"></param>
+    /// <returns></returns>
     private Quaternion ClampMoveRotation(Quaternion rot)
     {
         Vector3 eulerRot = rot.eulerAngles;
@@ -190,7 +222,9 @@ public class CameraController : MonoBehaviour
         // Returns the usable quaternion
         return Quaternion.Euler(eulerRot);
     }
-
+    /// <summary>
+    /// Resets the move rotation
+    /// </summary>
     private void ResetMoveRotation()
     { 
         cameraPivot.transform.localEulerAngles = new Vector3(0, cameraPivot.transform.localEulerAngles.y, 0);
@@ -199,7 +233,9 @@ public class CameraController : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Makes the camera zoom in/out on the object thanks to mouse scroll wheel
+    /// </summary>
     private void Zoom()
     {
         float mouseDelta = Input.GetAxis("Mouse ScrollWheel");
@@ -214,13 +250,17 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(2))
             ResetZoom();
     }
-
+    /// <summary>
+    /// Resets the zoom of the camera
+    /// </summary>
     private void ResetZoom()
     {
         cameraHolder.transform.localPosition = new Vector3(0, 0, -5);
     }
 
-
+    /// <summary>
+    /// Makes the camera go up/down thanks to keyboard keys
+    /// </summary>
     private void UpDownMove()
     {
         float y = Input.GetAxis("Vertical");
@@ -232,39 +272,11 @@ public class CameraController : MonoBehaviour
             cameraPivot.transform.localPosition += new Vector3(0, y * yUpDownSensitivity * dist * Time.deltaTime, 0);
         }
     }
-
+    /// <summary>
+    /// Resets the position of the camera
+    /// </summary>
     private void ResetPos()
     {
         cameraPivot.transform.localPosition = Vector3.zero;
-    }
-
-
-
-    // ## Cursor Handling ##
-
-    private void InitCursor()
-    {
-        SetCursor(true);
-    }
-
-    private void SetCursor(bool state)
-    {
-        Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;
-        Cursor.visible = !state;
-
-        locked = state;
-    }
-
-    private void CursorUpdate()
-    {
-        if (!locked && Input.GetMouseButtonDown(0) && settingsManager.SimulationOn)
-        {
-            SetCursor(true);
-        }
-
-        if (locked && Input.GetKeyDown(KeyCode.Escape))
-        {
-            SetCursor(false);
-        }
     }
 }

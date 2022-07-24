@@ -6,13 +6,13 @@ using UnityEngine.Rendering.Universal;
 
 
 /// <summary>
-/// Controls the camera's type of view
+/// Manages the depth of field of the camera
 /// </summary>
 public class CameraView : MonoBehaviour
 {
     private Camera mainCamera;
 
-
+    [Tooltip("Post processing volume permitting the depth of field handling")]
     [SerializeField] private Volume volume;
     private DepthOfField depthOfField;
 

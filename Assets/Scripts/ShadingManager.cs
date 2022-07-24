@@ -101,6 +101,9 @@ public class ShadingManager : MonoBehaviour
 
     // ### Functions ###
 
+    /// <summary>
+    /// Initialize the texture dropdown choices
+    /// </summary>
     public void InitTextureUI()
     {
         textureDropdown.options = new();
@@ -110,11 +113,13 @@ public class ShadingManager : MonoBehaviour
         {
             textureDropdown.options.Add(new TMP_Dropdown.OptionData(mat.name));
         }
-
+        // Then actualize the UI in consequence
         ActuTextureUI();
     }
 
-
+    /// <summary>
+    /// Actualize the shading UI components according to the current object
+    /// </summary>
     public void ActuShadingUI()
     {
         shadingDropdownn.value = IntShadingType;
@@ -126,6 +131,9 @@ public class ShadingManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Actualize the texture UI components according to the current object
+    /// </summary>
     public void ActuTextureUI()
     {
         float tiling = MaterialTiling;
@@ -143,7 +151,10 @@ public class ShadingManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Sets the shader of an object's material according to the current shading type
+    /// </summary>
+    /// <param name="type">Shading type</param>
     private void SetShading(ObjectShadingType type)
     {
         switch (type)
@@ -163,6 +174,10 @@ public class ShadingManager : MonoBehaviour
         }     
     }
 
+    /// <summary>
+    /// Gets the current shading type of an object's material
+    /// </summary>
+    /// <returns></returns>
     private ObjectShadingType GetShading()
     {
         switch (objectManager.currentSubObject.GetComponent<Renderer>().material.shader.name)
