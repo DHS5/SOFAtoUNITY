@@ -155,7 +155,7 @@ public class AssetManager : MonoBehaviour
             AssetDatabase.CreateAsset(AOC, folderPath + gameObjectName + "AOC.overrideController");
         }
 
-        AddSimulationObject(go);
+        AddSimulationObject(go, folderPath);
 
         Resize(go);
 
@@ -168,12 +168,23 @@ public class AssetManager : MonoBehaviour
     /// Add the simulation object component to a model
     /// </summary>
     /// <param name="go">GameObject of the model</param>
-    private void AddSimulationObject(GameObject go)
+    private void AddSimulationObject(GameObject go, string folderPath)
     {
         // Add sub objects
         foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
         {
             r.gameObject.AddComponent<SubSimulationObject>();
+            SkinnedMeshRenderer sMR = r.GetComponent<SkinnedMeshRenderer>();
+            MeshFilter mF = r.GetComponent<MeshFilter>();
+            Mesh mesh = sMR != null ? sMR.sharedMesh : mF.mesh;
+            if (mesh != null)
+            {
+                Mesh newMesh = Instantiate(mesh);
+                if (sMR != null) sMR.sharedMesh = newMesh;
+                else if (mF != null) mF.mesh = newMesh;
+
+                AssetDatabase.CreateAsset(newMesh, folderPath + mesh.name + "Mesh.mesh");
+            }
         }
 
         go.AddComponent<SimulationObject>();

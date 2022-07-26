@@ -9,6 +9,5 @@ AnimatorOverrideController:
   m_Name: TriangleSurfaceCuttingAOC
   m_Controller: {fileID: 9100000, guid: 7c279b09ad6ba164eb9b13787007a033, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -7551964380084998518, guid: 925eec73aed3e1c47bf056fa01080645,
-      type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 765b056c5ca320b4a8b8e3fdd566501f, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 4df506e18f610944b87a7f73c47d4ac9, type: 2}

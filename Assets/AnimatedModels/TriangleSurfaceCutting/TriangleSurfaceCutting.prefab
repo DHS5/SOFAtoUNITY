@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &605173854757346815
+--- !u!1 &612967605713099885
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8523896565390431146}
-  - component: {fileID: 8829848965621908433}
-  - component: {fileID: 2982386787258654718}
-  - component: {fileID: 8684072250054812025}
-  - component: {fileID: 3533528287463806385}
+  - component: {fileID: 7509363913493541339}
+  - component: {fileID: 7924516677023206024}
+  - component: {fileID: 5926542478368413902}
+  - component: {fileID: 4647376117714451897}
+  - component: {fileID: 7088730222142579198}
   m_Layer: 0
   m_Name: TriangleSurfaceCutting
   m_TagString: Untagged
@@ -20,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8523896565390431146
+--- !u!4 &7509363913493541339
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605173854757346815}
+  m_GameObject: {fileID: 612967605713099885}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.016900005, y: 0.016900005, z: 0.016900005}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &8829848965621908433
+--- !u!137 &7924516677023206024
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605173854757346815}
+  m_GameObject: {fileID: 612967605713099885}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -80,7 +80,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 6731018066356810478, guid: 0023d265383cc7a4a8111dbdea2404bb, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 5d97881bb0362c340893da29043eded2, type: 2}
   m_Bones: []
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
@@ -88,14 +88,14 @@ SkinnedMeshRenderer:
     m_Center: {x: -48.644707, y: 40.828426, z: 49.593044}
     m_Extent: {x: 51.355698, y: 59.171574, z: 50.549923}
   m_DirtyAABB: 0
---- !u!95 &2982386787258654718
+--- !u!95 &5926542478368413902
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605173854757346815}
+  m_GameObject: {fileID: 612967605713099885}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: 3c5aaa532a8985b49b7922ef9c4aa184, type: 2}
@@ -108,32 +108,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8684072250054812025
+--- !u!114 &4647376117714451897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605173854757346815}
+  m_GameObject: {fileID: 612967605713099885}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7228385fe92afb47840ce5434b330da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   materialIndex: 0
---- !u!114 &3533528287463806385
+--- !u!114 &7088730222142579198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605173854757346815}
+  m_GameObject: {fileID: 612967605713099885}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d09a1efbf0659548984e08f1393e1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   children:
-  - {fileID: 8684072250054812025}
-  animator: {fileID: 2982386787258654718}
+  - {fileID: 4647376117714451897}
+  animator: {fileID: 5926542478368413902}
   subObjectIndex: 0

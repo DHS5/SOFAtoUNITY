@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2838514031707901740
+--- !u!1 &840056572960020295
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7532001716037867410}
-  - component: {fileID: 583898728478655180}
-  - component: {fileID: 1715646745697901452}
-  - component: {fileID: 5640663840652644678}
-  - component: {fileID: 5278680810943068709}
+  - component: {fileID: 5500350399821533422}
+  - component: {fileID: 2392052025153148010}
+  - component: {fileID: 5687408485744742385}
+  - component: {fileID: 5111551047196237483}
+  - component: {fileID: 4681997104438374502}
   m_Layer: 0
   m_Name: CaduceusTest1
   m_TagString: Untagged
@@ -20,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7532001716037867410
+--- !u!4 &5500350399821533422
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838514031707901740}
+  m_GameObject: {fileID: 840056572960020295}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.02994942, y: 0.02994942, z: 0.02994942}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &583898728478655180
+--- !u!137 &2392052025153148010
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838514031707901740}
+  m_GameObject: {fileID: 840056572960020295}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -80,7 +80,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -2600291848172228068, guid: b81f85160ab502446bbe75d832f89a12, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 9ecf27b785dd10d4b84f4bc31246c0ed, type: 2}
   m_Bones: []
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
@@ -88,14 +88,14 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.39105988, y: 33.389977, z: 0.2719574}
     m_Extent: {x: 13.10866, y: 33.389626, z: 12.989557}
   m_DirtyAABB: 0
---- !u!95 &1715646745697901452
+--- !u!95 &5687408485744742385
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838514031707901740}
+  m_GameObject: {fileID: 840056572960020295}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: e702ed47592d9d5499ff582c5c0ed257, type: 2}
@@ -108,32 +108,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5640663840652644678
+--- !u!114 &5111551047196237483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838514031707901740}
+  m_GameObject: {fileID: 840056572960020295}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7228385fe92afb47840ce5434b330da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   materialIndex: 0
---- !u!114 &5278680810943068709
+--- !u!114 &4681997104438374502
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838514031707901740}
+  m_GameObject: {fileID: 840056572960020295}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d09a1efbf0659548984e08f1393e1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   children:
-  - {fileID: 5640663840652644678}
-  animator: {fileID: 1715646745697901452}
+  - {fileID: 5111551047196237483}
+  animator: {fileID: 5687408485744742385}
   subObjectIndex: 0
