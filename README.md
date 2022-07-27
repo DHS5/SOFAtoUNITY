@@ -126,6 +126,9 @@ IMPORTANT : do NOT change the active object during recording, nor the object's m
 
 https://user-images.githubusercontent.com/94963203/181260887-bf356d0a-a957-468c-81c9-f6d10fb56467.mp4
 
+### VR
+
+If you want to experience this project in VR, go check the SOFAtoUNITY_VRviewer : https://github.com/DHS5/SOFAtoUNITY_VRviewer
 
 
 ## Project configurations
