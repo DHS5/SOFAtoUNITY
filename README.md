@@ -18,37 +18,11 @@ It can be useful for many reasons :
 * testing different textures on an object and see the result with different lighting settings
 * exporting the result in .fbx format with camera animation
 
+## How to use
 
-## What you can do
+Download the zip file, unzip it and add the folder to the Unity Hub as a project.
 
-### Animation
-
-You can play/pause the animation, change the animation speed from fast to slow-mo and reverse and finally scroll through the animation thanks to a slider.
-
-https://user-images.githubusercontent.com/94963203/178690164-7d177498-6d9a-445d-85a5-54532cf46a3a.mp4
-
-### View
-
-You can turn around the object easily with mouse and keyboard shortcuts, zoom in and out, go up and down.
-
-https://user-images.githubusercontent.com/94963203/178688597-51f13de4-e2e9-4646-bb92-a2096252549b.mp4
-
-### Lighting
-
-You have 9 lights at your disposal, 3 directionnal lights, 3 point lights and 3 spot lights. You can configure their orientation, intensity, color and more. You can save all your changes into presets automatically saved between sessions.
-
-https://user-images.githubusercontent.com/94963203/178689747-6f72e453-b778-4d03-b2b2-5f88053d8486.mp4
-
-### Rendering
-
-You can choose to enable or not the different sub-objects of any object you are displaying and change the material of the sub-objects independently.
-You can also apply a wireframe shader on the sub-objects independently to visualize the meshes during the animation.
-Of course the wireframe shader and all materials are configurable at runtime.
-
-https://user-images.githubusercontent.com/94963203/178695522-981778d2-b13b-425e-87a6-eca198c5f096.mp4
-
-
-## Project configurations
+Once in the project, you can direclty enter play-mode to test the project on some examples of animated models coming from SOFA.
 
 By default, all 3D models in the folder 'Assets > Models' having the .blend extension will be "prepared", saved as assets, stored in a ScriptableObject and instantiated when entering play-mode.
 * The "preparation" step consist of component adding to the different sub-objects and the main object contained in the model.
@@ -60,10 +34,73 @@ The AssetManager script is situated on the MainManager GameObject in the scene.
 You can add other 3D model formats but you are responsible of making sure that the content of the model corresponds to the expectations.
 The expectations being a 3D model with at least one object with a mesh/skinned mesh renderer and only one animation.
 
+To make sure that a model coming from SOFA is ready to be implemented in the project, follow these steps :
+* If the model is a .obj with .mdd for the animation, do as follow :
+- import your .obj with Geometry > Keep verts order selected
+- select the model in your scene and import your .mdd
+* Once you imported your animated model (from .mdd or other), select it and enter edit-mode (Tab)
+* Select the whole mesh (A)
+* Go to meshs > Normals > Recalculate Outside
+* Delete the camera and the light from the scene
+* Select the model and go to Object > Animation > Bake Action
+
+If everything went fine, you can now go to the Unity project and import your .blend in the 'Models' folder. The imported .blend should contain a single animation clip named 'Scene', the meshes and the sub objects.
+
+Now you just have to press play and the model should be added to the 'Object' dropdown in the Settings during play-mode. You also should find a new folder with the object's name in 'Assets > AnimatedModels'.
+
+
+## What you can do
+
+### Animation
+
+You can play/pause the animation, change the animation speed from fast to slow-mo and reverse and finally scroll through the animation thanks to a slider (only when paused).
+
+https://user-images.githubusercontent.com/94963203/178690164-7d177498-6d9a-445d-85a5-54532cf46a3a.mp4
+
+### View
+
+You can turn around the object easily with mouse and keyboard shortcuts, zoom in and out, go up and down.
+
+https://user-images.githubusercontent.com/94963203/178688597-51f13de4-e2e9-4646-bb92-a2096252549b.mp4
+
+### Lighting
+
+You have 9 lights at your disposal, 3 directionnal lights, 3 point lights and 3 spot lights. You can configure their orientation, intensity, color and more. You can save all your changes into presets or direclty create new presets that are automatically saved between sessions.
+
+https://user-images.githubusercontent.com/94963203/178689747-6f72e453-b778-4d03-b2b2-5f88053d8486.mp4
+
+### Rendering
+
+You can choose to enable or not the different sub-objects of any object you are displaying and change the material of the sub-objects independently.
+You can also apply a wireframe shader on the sub-objects independently to visualize the meshes during the animation.
+Of course the wireframe shader and all materials are configurable at runtime.
+
+https://user-images.githubusercontent.com/94963203/178695522-981778d2-b13b-425e-87a6-eca198c5f096.mp4
+
+### Background
+
+The background object helps visualizing the object on a solid color, curvy background. You can activate/desactivate the background, change its color, distance and altitude.
+
+### Depth of field
+
+You can simulate depth of field thanks to the 'Camera View' settings panel. You can activate/desactivate depth of field, change the focal length, focus distance and aperture.
+
+### FBX Scene recording
+
+You can record the scene into a prefab that then can be exported as an FBX file.
+To do so you can use the 'Recording window' present in play-mode.
+It will create a new prefab that contains the object active during recording, the camera and the lights active during recording. Along with this prefab will be saved an animation clip containing the informations on the objects cited earlier ; and the materials used during the recording.
+
+This prefab can be exported as an FBX file simply by selectionning the prefab then going to 'GameObject > export to FBX' and export it your chosen location. Beware, the animations being made by blendshapes, make the FBX files thus created relatively heavy (~ > 100 MB).
+
+IMPORTANT : do NOT change the active object during recording, nor the object's material(s). Only the objects and materials active at the end of the recording can be saved in the prefab. You can however change the materials, lights, objects etc... properties and transforms.
+
+## Project configurations
+
 To add new materials to the list of runtime' available materials, simply add your new material to the materials list of the 'TextureContainer' ScriptableObject in 'Assets > ScriptableObjects' folder.
 
 You can modify some script's values in the Editor given the result you want.
-For example : the max speed for an animation is x16 but if you want more or less, you can modify the value in the AnimatorManager component of the MainManager in the scene.
+For example : the max speed for an animation is x32 but if you want more or less, you can modify the value in the AnimatorManager component of the MainManager in the scene.
 All useful scripts are components of the MainManager GameObject in the scene, I recommend not changing anything in the scene that isn't a value in those scripts.
 
 Of course, you can add any GameObject in the scene to use as a background or anything you want as long as it doesn't require to interact with the original system.
@@ -75,3 +112,7 @@ Currently, the project doesn't support models with several animations.
 The objects with several sub-objects must have a single animation which animate the whole object and not only a single sub-object.
 The perfect usecase is a .blend file with a 'Scene' animation that was baked in Blender and contains the animation of all the sub-objects.
 
+## Help
+
+Of course, a help window is present at runtime for the shortcuts etc...
+If you encounter any bugs or have a hard time getting the result you wanted, add an issue on this GitHub project, I'll see what I can do.
