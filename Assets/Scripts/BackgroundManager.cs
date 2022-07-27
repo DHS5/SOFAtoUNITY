@@ -9,6 +9,7 @@ public class BackgroundManager : MonoBehaviour
 
     [Header("Object")]
     public GameObject background;
+    public GameObject backgroundPivot;
     [SerializeField] private GameObject cameraPivot;
 
 
@@ -28,12 +29,12 @@ public class BackgroundManager : MonoBehaviour
     public float Distance
     {
         get { return background.transform.localPosition.z; }
-        set { background.transform.localPosition = new Vector3(0, Altitude, value); }
+        set { background.transform.localPosition = new Vector3(0, 0, value); }
     }
     public float Altitude
     {
-        get { return background.transform.localPosition.y; }
-        set { background.transform.localPosition = new Vector3(0, value, Distance); }
+        get { return backgroundPivot.transform.localPosition.y; }
+        set { backgroundPivot.transform.localPosition = new Vector3(0, value, 0); }
     }
 
     public Color Color
@@ -58,6 +59,6 @@ public class BackgroundManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        background.transform.rotation = Quaternion.Euler(0, cameraPivot.transform.rotation.eulerAngles.y + 180, 0);
+        backgroundPivot.transform.rotation = Quaternion.Euler(0, cameraPivot.transform.rotation.eulerAngles.y, 0);
     }
 }

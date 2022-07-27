@@ -75,17 +75,32 @@ public class ShadingManager : MonoBehaviour
     }
     public float MaterialTiling
     {
-        get { return objectManager.currentObject.MaterialTiling; }
+        get 
+        {
+            if (ShadingType == ObjectShadingType.SHADED)
+                return objectManager.currentObject.MaterialTiling;
+            else return 0;
+        }
         set { objectManager.currentObject.MaterialTiling = value; }
     }
     public float MaterialSmoothness
     {
-        get { return objectManager.currentObject.MaterialSmoothness; }
+        get 
+        {
+            if (ShadingType == ObjectShadingType.SHADED)
+                return objectManager.currentObject.MaterialSmoothness;
+            else return 0;
+        }
         set { objectManager.currentObject.MaterialSmoothness = value; }
     }
     public float MaterialNormal
     {
-        get { return objectManager.currentObject.MaterialNormal; }
+        get 
+        {
+            if (ShadingType == ObjectShadingType.SHADED)
+                return objectManager.currentObject.MaterialNormal;
+            else return 0;
+        }
         set { objectManager.currentObject.MaterialNormal = value; }
     }
 
