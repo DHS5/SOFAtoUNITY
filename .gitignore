@@ -70,3 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/AnimatedModels/1000PR/sofa_1000PR_00000Mesh.mesh
+Assets/AnimatedModels/1000PR/sofa_1000PR_00000Mesh.mesh.meta
+Assets/AnimatedModels/CaduceusTest1/caduceus_00000.004Mesh.mesh
+Assets/AnimatedModels/CaduceusTest1/caduceus_00000.004Mesh.mesh.meta
+Assets/AnimatedModels/Chain/chainHybrid_00000Mesh.mesh
+Assets/AnimatedModels/Chain/chainHybrid_00000Mesh.mesh.meta
