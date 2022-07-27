@@ -115,4 +115,4 @@ The perfect usecase is a .blend file with a 'Scene' animation that was baked in 
 ## Help
 
 Of course, a help window is present at runtime for the shortcuts etc...
-If you encounter any bugs or have a hard time getting the result you wanted, add an issue on this GitHub project, I'll see what I can do.
+If you encounter any bugs or have a hard time getting the result you wanted, create a new issue on this GitHub project, I'll see what I can do.
