@@ -16,7 +16,7 @@ It can be useful for many reasons :
 * observing precisely and direclty in Unity the animations of a character or object
 * observing the behaviour of the vertices of an animated object during the animation
 * testing different textures on an object and see the result with different lighting settings
-* exporting the result in .fbx format with camera animation
+* exporting the result in .fbx format with camera and lights animation
 
 ## How to use
 
@@ -55,19 +55,30 @@ Now you just have to press play and the model should be added to the 'Object' dr
 
 You can play/pause the animation, change the animation speed from fast to slow-mo and reverse and finally scroll through the animation thanks to a slider (only when paused).
 
-https://user-images.githubusercontent.com/94963203/178690164-7d177498-6d9a-445d-85a5-54532cf46a3a.mp4
+
+https://user-images.githubusercontent.com/94963203/181253439-5768f985-5da1-48f2-9180-d7a71df451ff.mp4
+
+
 
 ### View
 
 You can turn around the object easily with mouse and keyboard shortcuts, zoom in and out, go up and down.
 
-https://user-images.githubusercontent.com/94963203/178688597-51f13de4-e2e9-4646-bb92-a2096252549b.mp4
+
+
+https://user-images.githubusercontent.com/94963203/181253753-fd243138-8eb2-4098-8623-fc58da6e9801.mp4
+
+
 
 ### Lighting
 
 You have 9 lights at your disposal, 3 directionnal lights, 3 point lights and 3 spot lights. You can configure their orientation, intensity, color and more. You can save all your changes into presets or direclty create new presets that are automatically saved between sessions.
 
-https://user-images.githubusercontent.com/94963203/178689747-6f72e453-b778-4d03-b2b2-5f88053d8486.mp4
+
+
+https://user-images.githubusercontent.com/94963203/181254567-6c2ccde5-f48e-416f-94fb-8a4f754a97d7.mp4
+
+
 
 ### Rendering
 
@@ -75,15 +86,31 @@ You can choose to enable or not the different sub-objects of any object you are 
 You can also apply a wireframe shader on the sub-objects independently to visualize the meshes during the animation.
 Of course the wireframe shader and all materials are configurable at runtime.
 
-https://user-images.githubusercontent.com/94963203/178695522-981778d2-b13b-425e-87a6-eca198c5f096.mp4
+
+
+https://user-images.githubusercontent.com/94963203/181255196-823ca8e7-baf4-4d5a-b8cb-8de7d7b1965f.mp4
+
+
 
 ### Background
 
 The background object helps visualizing the object on a solid color, curvy background. You can activate/desactivate the background, change its color, distance and altitude.
 
+
+
+https://user-images.githubusercontent.com/94963203/181259772-e1508154-4ea0-42f6-a7a7-e7ff80c5dc89.mp4
+
+
+
 ### Depth of field
 
 You can simulate depth of field thanks to the 'Camera View' settings panel. You can activate/desactivate depth of field, change the focal length, focus distance and aperture.
+
+
+https://user-images.githubusercontent.com/94963203/181260367-8b2ada4b-d1db-44e2-ba15-9c1faf66ca41.mp4
+
+
+
 
 ### FBX Scene recording
 
@@ -94,6 +121,12 @@ It will create a new prefab that contains the object active during recording, th
 This prefab can be exported as an FBX file simply by selectionning the prefab then going to 'GameObject > export to FBX' and export it your chosen location. Beware, the animations being made by blendshapes, make the FBX files thus created relatively heavy (~ > 100 MB).
 
 IMPORTANT : do NOT change the active object during recording, nor the object's material(s). Only the objects and materials active at the end of the recording can be saved in the prefab. You can however change the materials, lights, objects etc... properties and transforms.
+
+
+
+https://user-images.githubusercontent.com/94963203/181260887-bf356d0a-a957-468c-81c9-f6d10fb56467.mp4
+
+
 
 ## Project configurations
 
