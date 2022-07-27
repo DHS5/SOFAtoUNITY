@@ -247,6 +247,8 @@ public class AssetManager : MonoBehaviour
     /// </summary>
     private void InstantiateModels()
     {
+        CleanModelContainer();
+
         foreach (GameObject g in modelContainer.modelPrefabs)
         {
             if (g != null)
@@ -256,5 +258,17 @@ public class AssetManager : MonoBehaviour
             }
         }
         objectManager.GetAllObjects();
+    }
+
+
+    private void CleanModelContainer()
+    {
+        for (int i = 0; i < modelContainer.modelPrefabs.Count; i++)
+        {
+            if (modelContainer.modelPrefabs[i] == null)
+            {
+                modelContainer.modelPrefabs.RemoveAt(i);
+            }
+        }
     }
 }

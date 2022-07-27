@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 99e5578ccbd4a994b88a24c8ec74fc6a
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -37,7 +37,7 @@ ModelImporter:
       takeName: Scene
       internalID: 0
       firstFrame: 1
-      lastFrame: 6
+      lastFrame: 323
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -128,6 +128,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
